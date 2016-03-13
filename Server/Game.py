@@ -2,21 +2,30 @@
 import math
 import random
 
-gameSize=10000
-
 class Game:
     """
     Classe qui définit le jeu
 
     atributs :
-        gameSize : taille du plateau (carré)
+        gamesize : taille du plateau (carré)
         joueurs : Un dictionaire des joueurs avec Nom:joueur
                         (Il y a un joueur nommé PNJ qui contient des spheres qui apparaissent aléatoirement)
     """
-    def __init__(self):
-        self.gameSize = gameSize
+    def __init__(self, gamesize, nbSpherePnj, nbMaxSpherePnj, minTailleSpheresPnj, maxTailleSpheresPnj):
+        self.gamesize = gamesize
+        self.nbMaxSpherePnj = nbMaxSpherePnj
+        self.minTailleSpheresPnj = minTailleSpheresPnj
+        self.maxTailleSpheresPnj = maxTailleSpheresPnj
         self.joueurs = dict()
         self.joueurs["PNJ"] = Player(ia="",username="PNJ")
+        for i in range(nbSpherePnj):
+            self.joueurs["PNJ"].spheres.append(
+                Sphere(
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
+                    taille=random.randint(minTailleSpheresPnj,maxTailleSpheresPnj)
+                )
+            )
 
 
 class Player:
@@ -35,54 +44,55 @@ class Player:
         if username != "PNJ":
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=150))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=1500))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=2090))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=1320))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=1328))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=2225))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=1211))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=2512))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=1230))
             self.spheres.append(
                 Sphere(
-                    random.randint(1, gameSize),
-                    random.randint(1, gameSize),
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
                     taille=1000))
+                    
 class Sphere:
     """
     Classe qui définit une Sphere
@@ -114,10 +124,10 @@ class Sphere:
         #print("x="+str(int(x))+"y="+str(int(y)))
         self.t+=1/30
 
-        if x > gameSize :
-            x=gameSize
-        if y > gameSize :
-            y=gameSize
+        if x > gamesize :
+            x=gamesize
+        if y > gamesize :
+            y=gamesize
 
         if x < 0 :
             x=0
