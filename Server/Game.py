@@ -1,6 +1,7 @@
 #! /bin/ipython3
 import math
 import random
+import json
 
 class Game:
     """
@@ -26,6 +27,20 @@ class Game:
                     taille=random.randint(minTailleSpheresPnj,maxTailleSpheresPnj)
                 )
             )
+
+    def toJson(self):
+        """
+        Retrourne le jeu simplifié en Json
+        """
+        res = dict()
+        for joueur in self.joueurs.values():
+            res[joueur.username] = []
+            for sphere in joueur.spheres:
+                res[joueur.username].append([
+                    sphere.vectPos,
+                    sphere.taille
+                    ])
+        return json.dumps(res,default=lambda o: o.__dict__)
 
 
 class Player:
@@ -92,7 +107,7 @@ class Player:
                     random.randint(1, gamesize),
                     random.randint(1, gamesize),
                     taille=1000))
-                    
+
 class Sphere:
     """
     Classe qui définit une Sphere
