@@ -1,7 +1,7 @@
 #! /bin/ipython3
 
 from http.server import BaseHTTPRequestHandler,HTTPServer
-from GameLoop import GameLoop
+from GameThread import GameThread
 import json
 
 
@@ -15,8 +15,8 @@ class myHandler(BaseHTTPRequestHandler):
         self.send_header('content-type', 'application/json')
         self.end_headers()
         # Send the html message
-        data = "zbra"
-        self.wfile.write(bytes(json.dumps(data,default=lambda o: o.__dict__),'ascii'))
+        data = self.server.gameThread.data
+        self.wfile.write(bytes(data,'ascii'))
         return
 
     # Handler for the POST requests
@@ -31,4 +31,5 @@ class GameServer(HTTPServer):
         """Constructor.  May be extended, do not override."""
         HTTPServer.__init__(self, server_address, myHandler)
 
-        self.GameLoop = GameLoop()
+        self.gameThread = GameThread()
+        self.gameThread.start()
