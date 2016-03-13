@@ -1,6 +1,7 @@
 #! /bin/ipython3
 
 import json
+import time
 import requests
 import threading
 import pygame
@@ -8,8 +9,8 @@ from pygame.locals import *
 
 WHITE = (255, 255, 255)
 
-ip = "localhost"
-port = 4444
+ip = "127.0.0.1"
+port = 8080
 
 pygame.init()
 screen = pygame.display.set_mode((500, 500))
@@ -36,20 +37,22 @@ def client(ip, port, screen):
 
     jsonHeaders = {'content-type': 'application/json'}
 
-    player=input("Username ?:")
+    #player=input("Username ?:")
+    player = "Nyda"
     data = dict()
     data["Username"]=player
     data["Ia"]="rand"
 
-    url = ''+ip+':'+port
+    url = 'http://'+str(ip)+':'+str(port)
 
-    rep = requests.post(url, data=json.dumps(data), headers=jsonHeaders)
+    rep = requests.post(url, data=json.dumps(data,default=lambda o: o.__dict__), headers=jsonHeaders)
 
-    while true:
+    while True:
         tick +=1
         try:
-            game = json.loads(requests.get(url))
-            affGame(game,screen)
+            pass
+            #game = json.loads(requests.get(url))
+            #affGame(game,screen)
         except json.JSONDecodeError:
             erreur += 1
         time.sleep(1000/30)
