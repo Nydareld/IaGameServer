@@ -19,7 +19,7 @@ class GameThread(Thread):
         self.data = self.game.toJson()
 
     #boucle du jeu
-    def run():
+    def run(self):
         while True:
             #si il y a un nouveau joueur
             pass
