@@ -18,7 +18,7 @@ class Game:
         self.minTailleSpheresPnj = minTailleSpheresPnj
         self.maxTailleSpheresPnj = maxTailleSpheresPnj
         self.joueurs = dict()
-        self.joueurs["PNJ"] = Player(ia="",username="PNJ")
+        self.joueurs["PNJ"] = Player(ia="",username="PNJ",gamesize=gamesize)
         for i in range(nbSpherePnj):
             self.joueurs["PNJ"].spheres.append(
                 Sphere(
@@ -27,6 +27,10 @@ class Game:
                     taille=random.randint(minTailleSpheresPnj,maxTailleSpheresPnj)
                 )
             )
+
+    def addJoueur(self,player):
+        print(json.dumps(player,default=lambda o: o.__dict__))
+        self.joueurs[player.username] = player
 
     def toJson(self):
         """
@@ -52,7 +56,7 @@ class Player:
         spheres : la liste des spheres du joueurs
         username : le nom d'utilisateur du joueur
     """
-    def __init__(self,ia,username):
+    def __init__(self,ia,username, gamesize):
         self.username = username
         self.spheres = []
         self.ia = ia
