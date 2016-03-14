@@ -21,15 +21,13 @@ class GameThread(Thread):
         self.data = self.game.toJson()
 
         #B2 barriere d'étape
-        self.barrierEtape = Barrier(1)
+        self.barrierEtape = Barrier(0)
         #B1 barriere de tours
-        self.barrierTours = Barrier(1)
-
-        self.barrierTours._action = self.updateEtape() 
+        self.barrierTours = Barrier(0)
 
 
-    def updateEtape(self):
-        self.barrierEtape._parties = self.barrierTours._parties
+    def update(self):
+        self.data = self.game.toJson()
 
     def connect(self, username, ia):
         #incr la barriere barrierTours
@@ -53,6 +51,5 @@ class GameThread(Thread):
             #ajoute des spheres PNJ
 
             #Join les bouboules
-
 
             pass
