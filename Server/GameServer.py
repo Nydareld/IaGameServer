@@ -2,6 +2,7 @@
 
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from GameThread import GameThread
+from PlayerThread import PlayerThread
 import json
 import cgi
 from urllib.parse import urlparse
@@ -23,6 +24,8 @@ class myHandler(BaseHTTPRequestHandler):
                 #print("Ia= "+parse_qs(parsed.query)['ia'][0])
                 print("Nouveau Joueur, Username= "+username+", IA= "+ia)
                 #Créer le joueur
+                thJoueur = PlayerThread(self.server.gameThread,username,ia)
+                thJoueur.start()
             except KeyError:
                 pass
 
