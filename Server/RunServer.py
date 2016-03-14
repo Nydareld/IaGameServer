@@ -3,7 +3,7 @@
 from GameServer import GameServer
 
 
-PORT= 8080
+PORT= 5555
 
 try:
     #Create a web server and define the handler to manage the

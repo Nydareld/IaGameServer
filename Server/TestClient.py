@@ -10,7 +10,7 @@ from pygame.locals import *
 WHITE = (255, 255, 255)
 
 ip = "127.0.0.1"
-port = 8080
+port = 5555
 
 pygame.init()
 screen = pygame.display.set_mode((500, 500))
@@ -50,10 +50,11 @@ def client(ip, port, screen):
     while True:
         tick +=1
         try:
-            pass
-            #game = json.loads(requests.get(url))
-            #affGame(game,screen)
-        except json.JSONDecodeError:
+            r = requests.get(url)
+            print(r.text)
+            game = json.loads(r.text)
+            affGame(game,screen)
+        except:
             erreur += 1
         time.sleep(1000/30)
 
