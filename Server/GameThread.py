@@ -20,11 +20,21 @@ class GameThread(Thread):
         self.game = Game(gamesize, nbSpherePnj, nbMaxSpherePnj, minTailleSpheresPnj, maxTailleSpheresPnj)
         self.data = self.game.toJson()
 
+        self.aManger = dict()
+
+        self.nbth = 0
+
         #B2 barriere d'étape
         self.barrierEtape = Barrier(0)
         #B1 barriere de tours
-        self.barrierTours = Barrier(0)
+        self.barrierManger = Barrier(0,action=self.manger())
+        #barriere de spheres a manger
+        self.barrierTours = Barrier(0,action=self.updateNbTh)
 
+    def updateNbTh(self):
+        print("zbra")
+        self.barrierManger._parties = self.nbth
+        self.barrierEtape._parties = self.nbth
 
     def update(self):
         self.data = self.game.toJson()
@@ -36,7 +46,12 @@ class GameThread(Thread):
         p = PlayerThread(self, username, ia)
         p.start()
 
+    def manger(self):
+        for joueur in self.aManger.keys():
+            for sphere in self.aManger[joueur]:
+                self.game[joueur].spheres.remove()
 
+        self.aManger = dict()
 
     def run(self):
         while True:
@@ -51,5 +66,4 @@ class GameThread(Thread):
             #ajoute des spheres PNJ
 
             #Join les bouboules
-
             pass
