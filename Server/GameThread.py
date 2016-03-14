@@ -2,6 +2,7 @@
 
 from Game import *
 from threading import Thread
+from threading import Barrier
 
 class GameThread(Thread):
 
@@ -18,12 +19,25 @@ class GameThread(Thread):
         self.game = Game(gamesize, nbSpherePnj, nbMaxSpherePnj, minTailleSpheresPnj, maxTailleSpheresPnj)
         self.data = self.game.toJson()
 
-    #B1 barriere de tours
-    #B2 barriere d'étape
+        #B1 barriere de tours
+        self.barrierTours = Barrier(1,action=updateEtape())
+        #B2 barriere d'étape
+        self.barrierEtape = Barrier(1)
 
-    #boucle du jeu
+
+    def updateEtape(self):
+        self.barrierEtape._parties = self.barrierTours._parties
+
+    def connect(self, username, ia):
+        #incr la barriere barrierTours
+        self.barrierTours+=1
+        #Créer un threadJoueur
+        
+
     def run(self):
         while True:
+            #attendre le temps d'un tick
+
             #si il y a un nouveau joueur on lajoute et on augmente la barriere
 
             #execute le code de l'ia
