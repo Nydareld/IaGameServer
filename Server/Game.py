@@ -3,6 +3,8 @@ import math
 import random
 import json
 
+gamesize = 10000
+
 class Game:
     """
     Classe qui définit le jeu
@@ -29,7 +31,7 @@ class Game:
             )
 
     def addJoueur(self,player):
-        print(json.dumps(player,default=lambda o: o.__dict__))
+        #print(json.dumps(player,default=lambda o: o.__dict__))
         self.joueurs[player.username] = player
 
     def toJson(self):
