@@ -1,6 +1,7 @@
 #! /bin/ipython3
 
 from Game import *
+from PlayerThread import PlayerThread
 from threading import Thread
 from threading import Barrier
 
@@ -32,7 +33,10 @@ class GameThread(Thread):
         #incr la barriere barrierTours
         self.barrierTours+=1
         #Créer un threadJoueur
-        
+        p = PlayerThread(self, username, ia)
+        p.start()
+
+
 
     def run(self):
         while True:
