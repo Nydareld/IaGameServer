@@ -33,6 +33,7 @@ class myHandler(BaseHTTPRequestHandler):
         self.send_header('content-type', 'application/json')
         self.end_headers()
         # Send the html message
+        self.server.gameThread.update()
         data = self.server.gameThread.data
         self.wfile.write(bytes(data,'ascii'))
 
