@@ -20,10 +20,12 @@ class GameThread(Thread):
         self.game = Game(gamesize, nbSpherePnj, nbMaxSpherePnj, minTailleSpheresPnj, maxTailleSpheresPnj)
         self.data = self.game.toJson()
 
-        #B1 barriere de tours
-        self.barrierTours = Barrier(1,action=updateEtape())
         #B2 barriere d'étape
         self.barrierEtape = Barrier(1)
+        #B1 barriere de tours
+        self.barrierTours = Barrier(1)
+
+        self.barrierTours._action = self.updateEtape() 
 
 
     def updateEtape(self):
@@ -31,7 +33,7 @@ class GameThread(Thread):
 
     def connect(self, username, ia):
         #incr la barriere barrierTours
-        self.barrierTours+=1
+        self.barrierTours._parties+=1
         #Créer un threadJoueur
         p = PlayerThread(self, username, ia)
         p.start()

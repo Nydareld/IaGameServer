@@ -7,6 +7,7 @@ class PlayerThread(Thread):
     def __init__(self, GameThread, username, ia):
         self.GameThread = GameThread
         self.username = username
+        self.barrierEtape._parties = self.barrierTours._parties
         self.ia = ia
 
     def run(self):
@@ -33,5 +34,3 @@ class PlayerThread(Thread):
 
     def join():
         pass
-
-    

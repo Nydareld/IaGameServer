@@ -22,7 +22,15 @@ class myHandler(BaseHTTPRequestHandler):
     # Handler for the POST requests
     # Post request en cas de nouveau joueur
     def do_POST(self):
-        return
+        form = cgi.FieldStorage(
+            fp=self.rfile,
+            headers=self.headers,
+            environ={'REQUEST_METHOD':'POST',
+                     'CONTENT_TYPE':self.headers['Content-Type'],
+                     })
+        for item in form.list:
+            print(item)
+        SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
 
 class GameServer(HTTPServer):
