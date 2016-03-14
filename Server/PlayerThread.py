@@ -39,7 +39,7 @@ class PlayerThread(Thread):
             aManger = self.join()
 
             self.GameThread.barrierManger.wait()
-            time.sleep(1)
+            time.sleep(1/60)
 
 
     def executeIa(self):
@@ -57,7 +57,11 @@ class PlayerThread(Thread):
                 for sphere2 in joueur2.spheres:
                     res = sphere.join(sphere2,joueur2)
                     if(res != None):
-                        if(not (listjoueur[res[0].username] in locals)):
+                        # if(not (listjoueur[res[0].username] in locals)):
+                        #     listjoueur[res[0].username] = []
+                        try:
+                            listjoueur[res[0].username].append(res[1])
+                        except KeyError:
                             listjoueur[res[0].username] = []
-                        listjoueur[res[0].username].append(res[1])
+                            listjoueur[res[0].username].append(res[1])
         return listjoueur
