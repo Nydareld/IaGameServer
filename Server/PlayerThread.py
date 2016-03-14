@@ -5,10 +5,14 @@ from threading import Thread
 class PlayerThread(Thread):
 
     def __init__(self, GameThread, username, ia):
+        Thread.__init__(self)
         self.GameThread = GameThread
         self.username = username
-        self.barrierEtape._parties = self.barrierTours._parties
+        GameThread.barrierEtape._parties = GameThread.barrierTours._parties
         self.ia = ia
+        #GameThread.game.joueurs[username]=Player(ia,username,GameThread.game.gamesize)
+        GameThread.game.addJoueur(Player(ia,username,GameThread.game.gamesize))
+
 
     def run(self):
         while True:
@@ -26,11 +30,11 @@ class PlayerThread(Thread):
 
             self.join()
 
-    def executeIa():
+    def executeIa(self):
         pass
 
-    def calculePos():
+    def calculePos(self):
         pass
 
-    def join():
+    def join(self):
         pass
