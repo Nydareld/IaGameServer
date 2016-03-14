@@ -3,7 +3,9 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from GameThread import GameThread
 import json
-
+import cgi
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 
 #This class will handles any incoming request from
 #the browser
@@ -11,26 +13,27 @@ class myHandler(BaseHTTPRequestHandler):
     #Handler for the GET requests
     # Get request pour récupérer le jeu a l'instant t
     def do_GET(self):
+
+        if self.path != "/":
+            try:
+                parsed = urlparse(self.path)
+                username = parse_qs(parsed.query)['username'][0]
+                ia = parse_qs(parsed.query)['ia'][0]
+                #print("username= "+parse_qs(parsed.query)['username'][0])
+                #print("Ia= "+parse_qs(parsed.query)['ia'][0])
+                print("Nouveau Joueur, Username= "+username+", IA= "+ia)
+                #Créer le joueur
+            except KeyError:
+                pass
+
         self.send_response(200)
         self.send_header('content-type', 'application/json')
         self.end_headers()
         # Send the html message
         data = self.server.gameThread.data
         self.wfile.write(bytes(data,'ascii'))
-        return
 
-    # Handler for the POST requests
-    # Post request en cas de nouveau joueur
-    def do_POST(self):
-        form = cgi.FieldStorage(
-            fp=self.rfile,
-            headers=self.headers,
-            environ={'REQUEST_METHOD':'POST',
-                     'CONTENT_TYPE':self.headers['Content-Type'],
-                     })
-        for item in form.list:
-            print(item)
-        SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
+        return
 
 
 class GameServer(HTTPServer):
