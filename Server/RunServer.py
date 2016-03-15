@@ -1,6 +1,6 @@
 #! /bin/ipython3
 
-from GameServer import GameServer
+from Server.GameServer import GameServer
 
 
 PORT= 5555

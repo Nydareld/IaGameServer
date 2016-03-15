@@ -1,7 +1,7 @@
 #! /bin/ipython3
 
-from Game import *
-from PlayerThread import PlayerThread
+from Server.Game import *
+from Server.PlayerThread import PlayerThread
 from threading import Thread
 from threading import Barrier
 from threading import Lock

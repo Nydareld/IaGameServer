@@ -1,4 +1,4 @@
-from Game import *
+from Server.Game import *
 from threading import Thread
 import threading
 import time
