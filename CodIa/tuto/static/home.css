@@ -45,10 +45,11 @@ div.sample{
 float: left;
 border: 5px solid black;
 width: 35%;
-
-
 }
 
+#actif a{
+  color : orange;
+}
 
 #right{
 float: right;

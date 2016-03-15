@@ -29,16 +29,16 @@
     <div>
       <ul class="nav navbar-nav">
       <!-- home -->
-        <li class="active"><a href="{{ url_for('home') }}">Accueil</a></li>
+        <li {% if tab == "Accueil" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('home') }}"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
 
         <!-- Page 2  -->
  		{% if current_user.is_authenticated %}
-       <li class="active"><a href="{{ url_for('MesIA') }}">Mes IA</a></li>
+       <li {% if tab == "MesIA" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('MesIA') }}"><span class="glyphicon glyphicon-duplicate"></span> Mes IA</a></li>
         {% endif %}
         <!-- Page 3  -->
-        <li><a href="{{ url_for('classement') }}">Classement</a></li>
-        <li><a href="{{ url_for('reglement') }}">Réglement</a></li>
-        <li><a href="{{ url_for('apropos') }}">A propos</a></li>
+        <li {% if tab == "Classement" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('classement') }}"><span class="glyphicon glyphicon-stats"></span> Classement</a></li>
+        <li {% if tab == "Règles" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('reglement') }}"><span class="glyphicon glyphicon-book"></span> Réglement</a></li>
+        <li {% if tab == "Apropos" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('apropos') }}"><span class="glyphicon glyphicon-pencil"></span> A propos</a></li>
       </ul>
       <!-- search  -->
 
@@ -52,12 +52,12 @@
       <!-- Login  -->
       <ul class="nav navbar-nav navbar-right">
 		{% if current_user.is_authenticated %}
-		<li><a href="#"><span class="glyphicon glyphicon-user"></span>Bonjour {{ current_user.pseudo }}</a></li>
+		<li><a href="#"><span class="glyphicon glyphicon-user"></span> Bonjour {{ current_user.pseudo }}</a></li>
         <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
 
 		{% else %}
-        <li><a href="{{ url_for('ajout_client') }}"><span class="glyphicon glyphicon-user"></span> Inscription</a></li>
-        <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+        <li {% if tab == "Inscription" %} id="actif" class="active" {% endif %}><a href="{{ url_for('ajout_client') }}"><span class="glyphicon glyphicon-user"></span> Inscription</a></li>
+        <li {% if tab == "Connexion" %} id="actif" class="active" {% endif %}><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
         {% endif %}
       </ul>
     </div>
@@ -72,12 +72,13 @@
 
 
 
+
+
 	{% block content %}
 
 	{% block main %}{% endblock %}
 
 	{% endblock %}
-
 
 
 	</nav>

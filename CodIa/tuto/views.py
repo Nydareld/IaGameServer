@@ -23,7 +23,8 @@ def home():
 
 	return  render_template(
 			"home.html",
-			title="CodIA"
+			title="CodIA",
+			tab="Accueil"
 			)
 
 
@@ -33,17 +34,18 @@ def classement():
 	return  render_template(
 			"classement.html",
 			title="Classement",
-			users=User.query.all()
+			users=User.query.all(),
+			tab="Classement"
 			)
 
 @app.route("/reglement")
 def reglement():
-	return render_template("reglement.html")
+	return render_template("reglement.html",tab="Règles")
 						####### musiques #######
 
 @app.route("/MesIA")
 def MesIA():
-	return render_template("/MesIA.html",ia=Ia.query.all())
+	return render_template("/MesIA.html",ia=Ia.query.all(),tab="MesIA")
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -68,7 +70,7 @@ def upload_file():
 
 @app.route("/suprIa/<string:filename>")
 def suprIa(filename):
-	os.remove('tuto/Ia/'+filename)
+	os.remove('tuto/IA/'+filename)
 	removeIa(filename)
 	db.session.commit()
 	return redirect(url_for('MesIA'))
@@ -193,7 +195,7 @@ class UserForm(Form) :
 @app.route("/ajout/")
 def ajout_client():
 	f=UserForm(name=None, prenom=None, mail=None, mdp=None)
-	return render_template("ajout-client.html", form=f)
+	return render_template("ajout-client.html", form=f,tab="Inscription")
 
 
 from hashlib import sha256
@@ -268,7 +270,7 @@ def login():
 			return redirect(next)
 	return render_template(
 		"login.html",
-		form = f)
+		form = f,tab="Connexion")
 
 @app.route("/logout/")
 def logout():
@@ -298,7 +300,7 @@ def data():
 
 @app.route("/apropos")
 def apropos():
-	return render_template("apropos.html")
+	return render_template("apropos.html",tab="Apropos")
 
 
 					####Musique Favoris#####
