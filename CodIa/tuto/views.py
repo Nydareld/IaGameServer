@@ -290,6 +290,12 @@ def addPlayer(username, ia):
 	thJoueur.start()
 	return redirect(url_for("home"))
 
+@app.route("/randTestPlayers")
+def randTestPlayers():
+	for n in range(10):
+		thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
+		thJoueur.start()
+	return redirect(url_for("home"))
 
 
 						########Contact######
