@@ -63,7 +63,7 @@ class GameThread(Thread):
                     self.game.joueurs[joueur].spheres.remove(sphere)
                     res-=1
 
-        print(res)
+        #print(res)
         self.aManger = []
 
 
