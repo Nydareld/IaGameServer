@@ -25,6 +25,8 @@ function init() {
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", stage);
 
+    var colors = new Array();
+
     setInterval(function(){
 
         stage.removeAllChildren();
@@ -35,8 +37,10 @@ function init() {
             dataType: "json",
             success: function(json) {
                 $.each(json, function(key, val){
+                    if( colors[key] == null ){
+                        colors[key] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                    }
                     var max = 0;
-                    var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
                     for (j=0; j<val.length; j++){
 
                         var circle = new createjs.Shape();
@@ -45,7 +49,7 @@ function init() {
                         if(size/10>max){
                             max = size/10;
                         }
-                        circle.graphics.beginFill(color).drawCircle(0, 0, size/10);
+                        circle.graphics.beginFill(colors[key]).drawCircle(0, 0, size/10);
                         circle.x = val[j][0][0]/10000*stage.canvas.width;
                         circle.y = val[j][0][1]/10000*stage.canvas.height;
                         stage.addChild(circle);
@@ -57,7 +61,7 @@ function init() {
 
         stage.update();
 
-    }, 10);
+    }, 30);
 
     // this will show the info it in firebug console
 }
