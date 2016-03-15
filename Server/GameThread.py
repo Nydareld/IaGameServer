@@ -4,6 +4,7 @@ from Game import *
 from PlayerThread import PlayerThread
 from threading import Thread
 from threading import Barrier
+from threading import Lock
 
 class GameThread(Thread):
 
@@ -16,18 +17,19 @@ class GameThread(Thread):
         minTailleSpheresPnj     taille minimum d'une Sphere du PNJ
         maxTailleSpheresPnj     taille maximum d'une Sphere du PNJ
         """
+        self.lockmanger = Lock()
         Thread.__init__(self)
         self.game = Game(gamesize, nbSpherePnj, nbMaxSpherePnj, minTailleSpheresPnj, maxTailleSpheresPnj)
         self.data = self.game.toJson()
 
-        self.aManger = dict()
+        self.aManger = []
 
         self.nbth = 0
 
         #B2 barriere d'étape
         self.barrierEtape = Barrier(0)
         #B1 barriere de tours
-        self.barrierManger = Barrier(0,action=self.manger())
+        self.barrierManger = Barrier(0,action=self.manger)
         #barriere de spheres a manger
         self.barrierTours = Barrier(0,action=self.updateNbTh)
 
@@ -46,12 +48,24 @@ class GameThread(Thread):
         p = PlayerThread(self, username, ia)
         p.start()
 
-    def manger(self):
-        for joueur in self.aManger.keys():
-            for sphere in self.aManger[joueur]:
-                self.game[joueur].spheres.remove()
 
-        self.aManger = dict()
+    def manger(self):
+        res = 0
+        for boule in self.game.joueurs.keys():
+            for x in boule:
+                res+=1
+        #print(res)
+
+        for dico in self.aManger:
+            for joueur in dico:
+                for sphere in dico[joueur]:
+                    print(self.game.joueurs[joueur])
+                    self.game.joueurs[joueur].spheres.remove(sphere)
+                    res-=1
+
+        print(res)
+        self.aManger = []
+
 
     def run(self):
         while True:
