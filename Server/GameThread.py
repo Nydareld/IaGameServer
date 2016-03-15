@@ -34,7 +34,7 @@ class GameThread(Thread):
         self.barrierTours = Barrier(0,action=self.updateNbTh)
 
     def updateNbTh(self):
-        print("zbra")
+        self.data = self.game.toJson()
         self.barrierManger._parties = self.nbth
         self.barrierEtape._parties = self.nbth
 
