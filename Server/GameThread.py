@@ -4,6 +4,7 @@ from Game import *
 from PlayerThread import PlayerThread
 from threading import Thread
 from threading import Barrier
+from threading import Lock
 
 class GameThread(Thread):
 
@@ -16,6 +17,7 @@ class GameThread(Thread):
         minTailleSpheresPnj     taille minimum d'une Sphere du PNJ
         maxTailleSpheresPnj     taille maximum d'une Sphere du PNJ
         """
+        lockmanger = Lock()
         Thread.__init__(self)
         self.game = Game(gamesize, nbSpherePnj, nbMaxSpherePnj, minTailleSpheresPnj, maxTailleSpheresPnj)
         self.data = self.game.toJson()

@@ -38,6 +38,8 @@ class PlayerThread(Thread):
 
             aManger = self.join()
 
+            self.GameThread.lockmanger.acquire()
+            self.GameThread.aManger
             self.GameThread.barrierManger.wait()
             time.sleep(1/60)
 
