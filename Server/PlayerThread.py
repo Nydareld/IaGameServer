@@ -22,24 +22,27 @@ class PlayerThread(Thread):
     def run(self):
         while True:
             #attend le début du tours
-            print("Barriere debut de tours "+str(threading.current_thread().name))
-            print(self.GameThread.barrierTours.parties)
+            #print("Barriere debut de tours "+str(threading.current_thread().name))
+            #print(self.GameThread.barrierTours.parties)
             self.GameThread.barrierTours.wait()
             #execute le code de l'IA
             self.executeIa()
 
 
-            print(self.GameThread.barrierEtape.parties)
+            #print(self.GameThread.barrierEtape.parties)
             self.GameThread.barrierEtape.wait()
 
             self.calculePos()
 
             self.GameThread.barrierEtape.wait()
 
-            aManger = self.join()
-
+            agraille = self.join()
+            #print("avant acquire")
             self.GameThread.lockmanger.acquire()
-            self.GameThread.aManger
+            self.GameThread.aManger.append(agraille)
+            #print("pendant")
+            self.GameThread.lockmanger.release()
+            #print("après release")
             self.GameThread.barrierManger.wait()
             time.sleep(1/60)
 
