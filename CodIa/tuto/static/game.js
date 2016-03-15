@@ -57,7 +57,7 @@ function init() {
 
         stage.update();
 
-    }, 100);
+    }, 10);
 
     // this will show the info it in firebug console
 }
