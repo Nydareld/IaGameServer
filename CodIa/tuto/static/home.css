@@ -5,10 +5,10 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather);
 $red: #e74c3c;
 
-*, 
-*:before, 
+*,
+*:before,
 *:after {
-   @include box-sizing(border-box); 
+   @include box-sizing(border-box);
 }
 
 html, body {
@@ -66,7 +66,7 @@ width: 60%;
 }
 
 #images{
- 
+
   margin-left: 10%;
 }
 
@@ -105,4 +105,9 @@ to { -o-transform: rotateZ(.5deg) }
 from { transform: rotateZ(1deg) }
 38% { transform: rotateZ(-1deg) }
 to { transform: rotateZ(.5deg) }
+}
+
+#gameCanvas{
+    border: 3px #999999 solid;
+    border-radius: 15px;
 }
