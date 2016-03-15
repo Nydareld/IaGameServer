@@ -12,13 +12,15 @@ from wtforms import PasswordField
 from .models import User, Ia
 from hashlib import sha256
 import os
+import requests
+
 # from .models import Musique,Singer
 
 						####### home #######
 
 @app.route("/")
 def home():
-	
+
 	return  render_template(
 			"home.html",
 			title="CodIA"
@@ -68,7 +70,7 @@ def upload_file():
 def suprIa(filename):
 	os.remove('tuto/Ia/'+filename)
 	return redirect(url_for('MesIA'))
-#quand nous cliquons sur une image spécifique 
+#quand nous cliquons sur une image spécifique
 
 # @app.route("/one_music/<int:id>/")
 # def one_music(id):
@@ -77,9 +79,9 @@ def suprIa(filename):
 # 			music=Musique.query.get(id),
 # 			genres=get_genre(Musique.query.get(id).title),
 # 			fav=FavorisOuPas)
-			
 
-#paggination + recherche par titre du musique 
+
+#paggination + recherche par titre du musique
 # @app.route("/img/")
 # @app.route("/img/<int:debut>/")
 # @app.route("/img/<string:filter>/")
@@ -116,7 +118,7 @@ def suprIa(filename):
 # 			nb=18,
 # 			Chanteurs=get_chanteurs(deb),
 # 			nbrchanteurs=getNbrSinger()
-# 			)	
+# 			)
 
 
 
@@ -180,7 +182,7 @@ class UserForm(Form) :
 	name = StringField('NOM', validators=[DataRequired()])
 	prenom = StringField('PRENOM', validators=[DataRequired()])
 	mdp = PasswordField('MOT DE PASSE', validators=[DataRequired()])
-	
+
 	def get_user(pseudo):
 		return User.get(pseudo)
 
@@ -226,7 +228,7 @@ def ajouter_client():
 		form=f,
 		message=msg)
 
-@app.route("/bienvenue")		
+@app.route("/bienvenue")
 def bienvenue(name):
 	return render_template("bienvenue.html",nom=name)
 
@@ -236,7 +238,7 @@ class LoginForm(Form):
 	pseudo = StringField("Nom d'utilisateur (pseudo)")
 	password = PasswordField('Mot de passe')
 	next = HiddenField()
-	
+
 	def get_authenticated_user(self):
 		user = User.query.get(self.pseudo.data)
 		if user is None :
@@ -254,11 +256,11 @@ from flask import request
 @app.route("/login/", methods=("GET","POST",))
 def login():
 	f = LoginForm()
-	if not f.is_submitted() : 
+	if not f.is_submitted() :
 		f.next.data = request.args.get("next")
 	elif f.validate_on_submit():
 		inscrit = f.get_authenticated_user()
-		if inscrit is not None : 
+		if inscrit is not None :
 			login_user(inscrit)
 			next = f.next.data or url_for("home")
 			return redirect(next)
@@ -275,7 +277,14 @@ def logout():
 
 
 
-
+@app.route("/data")
+def data():
+	ip = "127.0.0.1"
+	port = 5555
+	url = 'http://'+str(ip)+':'+str(port)
+	r= requests.get(url).text
+	print(r)
+	return r
 
 
 
@@ -292,16 +301,16 @@ def apropos():
 
 					####Musique Favoris#####
 
-	
-	
+
+
 @app.route("/ajouterFavoris/<int:idM>+<string:idU>")
 def ajouterFavoris(idM,idU):
 	f=Favoris(id_musique=None, pseudo=None)
 	# f.id=Favoris.query.count()+1
 	# id = Favoris.query.count()+1
 	# f.id=id
-	f.id_musique=idM 
-	f.pseudo=idU 
+	f.id_musique=idM
+	f.pseudo=idU
 	add_favoris(f)
 	db.session.commit()
 	return redirect(url_for('one_music', id=idM))
