@@ -25,14 +25,10 @@ def mkpath(p):
 
 from flask.ext.sqlalchemy import SQLAlchemy
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-	'sqlite:///'+mkpath('../CodIA.db'))
+	'sqlite:///'+mkpath('../../CodIA.db'))
 db=SQLAlchemy(app)
 
 app.config['SECRET_KEY']="f5e63d01-f3a7-48d1-af81-bb0c3f3b458a"
 
 from flask.ext.login import LoginManager
 login_manager=LoginManager(app)
-
-
-
-
