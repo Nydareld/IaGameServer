@@ -5,10 +5,10 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather);
 $red: #e74c3c;
 
-*, 
-*:before, 
+*,
+*:before,
 *:after {
-   @include box-sizing(border-box); 
+   @include box-sizing(border-box);
 }
 
 html, body {
@@ -45,10 +45,11 @@ div.sample{
 float: left;
 border: 5px solid black;
 width: 35%;
-
-
 }
 
+#actif a{
+  color : orange;
+}
 
 #right{
 float: right;
@@ -66,7 +67,7 @@ width: 60%;
 }
 
 #images{
- 
+
   margin-left: 10%;
 }
 
