@@ -100,3 +100,8 @@ from { transform: rotateZ(1deg) }
 38% { transform: rotateZ(-1deg) }
 to { transform: rotateZ(.5deg) }
 }
+
+#gameCanvas{
+    border: 3px #999999 solid;
+    border-radius: 15px;
+}

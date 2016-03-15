@@ -12,6 +12,8 @@ from wtforms import PasswordField
 from .models import User, Ia, removeIa
 from hashlib import sha256
 import os
+import requests
+
 # from .models import Musique,Singer
 
 						####### home #######
@@ -279,7 +281,14 @@ def logout():
 
 
 
-
+@app.route("/data")
+def data():
+	ip = "127.0.0.1"
+	port = 5555
+	url = 'http://'+str(ip)+':'+str(port)
+	r= requests.get(url).text
+	print(r)
+	return r
 
 
 
