@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block styles %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='apropos.css') }}">
+	{% endblock %}
+
+
+
+{% block main %}
+<h1>A propos</h1>
+<div class="aprop">
+  <p>Jeu réalisé suite à un projet lors de notre 2ème année d'IUT
+Membres du projet: Bedrane Nicolas, Pallu Flavien, Lecomte Clément, Picard Quentin, Kremer Quentin.</p> 
+</br>
+<p>Chef de projet: Clément Lecompte 06 65 55 58 54</p>
+<p>Email: clement.lecomte@etu.univ-orleans.fr</p>
+
+</div>
+<h1>Contactez nous via le site</h1>
+<form class="cf">
+  <div class="half left cf">
+    <input type="text" id="input-name" placeholder="Name">
+    <input type="email" id="input-email" placeholder="Email address">
+    <input type="text" id="input-subject" placeholder="Subject">
+  </div>
+
+  <div class="half right cf">
+    <textarea name="message" type="text" id="input-message" placeholder="Message"></textarea>
+  </div>  
+  <input type="submit" value="Submit" id="input-submit">
+</form>
+{% endblock %}

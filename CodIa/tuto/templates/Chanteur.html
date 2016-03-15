@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+	
+  {% block content %}
+
+  {% block main %}    
+    <div class="sample">
+    <div class="container">
+     
+        {% for x in Chanteurs %}
+        <div class="col-xs-4 col-sm-3 col-md-3">
+   
+        <a href="{{ url_for('edit_chanteur', id=x.id) }}"> {{ x.name }}</a>
+        
+        </div>
+      
+        {% endfor %}
+
+
+    
+     <div id="page_navigation"> </div>
+    </div>
+    </div>
+    
+    {% endblock %}
+  <div  class="container theme-showcase" role="main">
+    
+    <div class="col-md-3"></div>
+    <ul class="pager col-md-6">
+
+
+  <li class="previous"><a href="{% if deb>0 %}/nb/{{deb - 10}} {% endif %}"><span class="glyphicon glyphicon-backward"></span> Précédent</a></li>
+
+  
+
+ 
+  <li class="next"><a href="{% if deb<8865 %}/nb/{{deb + 10}}{% endif %}">Suivant <span class="glyphicon glyphicon-forward"></span></a></li>
+
+</ul>
+  
+  </div>
+
+  
+  
+{% endblock %}
+

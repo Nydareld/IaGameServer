@@ -1,0 +1,44 @@
+
+	
+		{% extends "base.html" %}
+
+	{% block styles %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='MesIA.css') }}">
+	{% endblock %}
+	{% block content %}
+
+	{% block main %}
+	<h2>Mes Intelligences Artificielle	</h2>
+	<aside>
+	<div class="button">	
+	
+    </div>
+</aside>
+	<div class="mesia">
+   
+   
+       
+      <ul>
+       {% for x in ia %}
+       {% if x.user_pseudo==current_user.pseudo %}
+        <li>{{x.name}}<a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-remove"></button></a><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></li>{% endif %}
+      {% endfor %}
+</ul>
+  <a href="{{ url_for('upload_file') }}" ><button type="button" class="btn btn-primary" >Ajouter IA</button></br></a>
+
+	</div>
+    	
+    
+		
+		{% endblock %}
+
+	
+	
+
+
+
+	{% endblock %}
+
+
+

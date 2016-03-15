@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<title>{{ title }}</title>
+   
+	</head>
+	<body>
+		
+  	
+		{% extends "base.html" %}
+
+	
+	{% block content %}
+
+	{% block main %}
+			
+		
+		<div class="sample">
+    <div class="container">
+      	<div id="images">
+    		{% for x in musiques(current_user.pseudo) %}
+    		{% if x.img!=None %}
+    			
+    		
+    		<div class="col-xs-4 col-sm-3 col-md-3">
+    		<a href="{{ url_for('one_music', id=x.id) }}" >
+    		<div class="portfolio-thumb-shake">
+    		<img id="acceuil" src="{{ url_for('static', filename='images/'+x.img) }}"   /></div>
+    		</a>
+    		</div>
+    		{% endif %}
+        
+    	
+    		{% endfor %}
+    
+     <div id="page_navigation"> </div>
+		</div>
+    </div>
+		
+		{% endblock %}
+	<div  class="container theme-showcase" role="main">
+		
+		
+{% endblock %}
+
+	</body>
+
+</html>

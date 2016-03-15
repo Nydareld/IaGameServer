@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+			{% block main %}
+<div class="container">
+  <h2>Classement</h2>
+  <p>Voici le classement du jeu CodIA:</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Pseudo</th>
+        <th>Prenom</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+       {% for x in users %}
+      <tr>
+        <td>{{x.pseudo}}</td>
+        <td>{{x.usersurname}}</td>
+        <td>{{x.score}}</td>
+      </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

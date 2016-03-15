@@ -1,0 +1,100 @@
+
+
+	{% extends "bootstrap/base.html" %}
+
+
+	{% block title %}{{ title}}{% endblock %}
+	{% block styles %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+	{% endblock %}
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+	{% block scripts %}
+		{{super()}}
+		<script src="{{url_for('.static', filename='home.js')}}"></script>
+		
+	{% endblock %}
+
+
+
+<body>
+{% block navbar %}
+
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">CodIA</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+      <!-- home -->
+        <li class="active"><a href="{{ url_for('home') }}">Accueil</a></li>
+      
+        <!-- Page 2  -->
+ 		{% if current_user.is_authenticated %}
+       <li class="active"><a href="{{ url_for('MesIA') }}">Mes IA</a></li>
+        {% endif %}
+        <!-- Page 3  -->
+        <li><a href="{{ url_for('classement') }}">Classement</a></li>
+        <li><a href="{{ url_for('reglement') }}">Réglement</a></li>
+        <li><a href="{{ url_for('apropos') }}">A propos</a></li>
+      </ul>
+      <!-- search  -->
+
+<!-- <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input id="txt" type="text" class="form-control" placeholder="chercher par titre,chanteur">
+        </div>
+        <button id="bouton" type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
+      </form> -->
+
+      <!-- Login  -->
+      <ul class="nav navbar-nav navbar-right">
+		{% if current_user.is_authenticated %}
+		<li><a href="#"><span class="glyphicon glyphicon-user"></span>Bonjour {{ current_user.pseudo }}</a></li>
+        <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
+
+		{% else %}
+        <li><a href="{{ url_for('ajout_client') }}"><span class="glyphicon glyphicon-user"></span> Inscription</a></li>
+        <li><a href="{{ url_for('login') }}"><span class="glyphicon glyphicon-log-in"></span> Connexion</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+		
+       	
+      
+
+
+{% endblock %}
+
+
+	
+
+
+
+
+
+
+
+	{% block content %}
+	
+	{% block main %}{% endblock %}
+
+	{% endblock %}
+
+
+	
+					
+
+	</nav>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block main %}
+</br>
+</br>
+</br>
+</br>
+<div class="container">
+	<h1> S'inscrire, c'est facile </h1>
+	{% if message %}
+		<div class="alert alert-danger" role="alert"> {{ message }} </div>
+	{% endif %}
+	<form role="form" method="POST" action="{{ url_for('ajouter_client') }}">
+		{{ form.hidden_tag() }}
+		<div class=	"form-group">
+			{{ form.pseudo.label }} {{ form.pseudo(size=50, class_="form-control") }}
+			{{ form.prenom.label }} {{ form.prenom(size=50, class_="form-control") }}
+			{{ form.name.label }} {{ form.name(size=50, class_="form-control") }}
+			{{ form.mail.label }} {{ form.mail(size=50, class_="form-control") }}
+			{{ form.mdp.label }} {{ form.mdp(size=50, class_="form-control") }}
+		</div>
+		<input class="btn btn-lg btn-primary" type="submit" value="M'inscrire">
+	</form>
+</div>
+{% endblock %}

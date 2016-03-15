@@ -1,0 +1,108 @@
+
+
+@import "compass/css3";
+
+@import url(http://fonts.googleapis.com/css?family=Merriweather);
+$red: #e74c3c;
+
+*, 
+*:before, 
+*:after {
+   @include box-sizing(border-box); 
+}
+
+html, body {
+  background: #f1f1f1;
+  font-family: 'Merriweather', sans-serif;
+  padding: 1em;
+}
+
+
+
+
+h1{
+
+	color:red;
+}
+
+div.sample{
+
+	text-align: : center;
+	margin-left: 0%;
+	margin-right: 18%;
+}
+
+#main{
+	margin-top: 5em;
+}
+
+#acceuil{
+		margin-bottom: 10%;
+	margin-top: 10%;
+
+}
+#left{
+float: left;
+border: 5px solid black;
+width: 35%;
+
+
+}
+
+
+#right{
+float: right;
+width: 60%;
+
+}
+
+#titre{
+	text-align: center;
+}
+
+.sample .container img{
+	width: 200px;
+	height: 200px;
+}
+
+#images{
+ 
+  margin-left: 10%;
+}
+
+#acceuil{
+	border-radius:10px;
+}
+
+.portfolio-thumb-shake img:hover {
+-webkit-animation: shake 0.2s ease-in-out infinite;
+-moz-animation: shake 0.2s ease-in-out infinite;
+-ms-animation: shake 0.2s ease-in-out infinite;
+-o-animation: shake 0.2s ease-in-out infinite;
+animation: shake 0.2s ease-in-out infinite;
+}
+@-webkit-keyframes shake {
+from { -webkit-transform: rotateZ(1deg) }
+38% { -webkit-transform: rotateZ(-1deg) }
+to { -webkit-transform: rotateZ(.5deg) }
+}
+@-moz-keyframes shake {
+from { -moz-transform: rotateZ(1deg) }
+38% { -moz-transform: rotateZ(-1deg) }
+to { -moz-transform: rotateZ(.5deg) }
+}
+@-ms-keyframes shake {
+from { -ms-transform: rotateZ(1deg) }
+38% { -ms-transform: rotateZ(-1deg) }
+to { -ms-transform: rotateZ(.5deg) }
+}
+@-o-keyframes shake {
+from { -o-transform: rotateZ(1deg) }
+38% { -o-transform: rotateZ(-1deg) }
+to { -o-transform: rotateZ(.5deg) }
+}
+@keyframes shake {
+from { transform: rotateZ(1deg) }
+38% { transform: rotateZ(-1deg) }
+to { transform: rotateZ(.5deg) }
+}

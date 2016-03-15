@@ -1,0 +1,28 @@
+h2{
+	text-align: center;	
+
+}
+
+button{
+	margin-top: 2%;
+}
+
+aside{
+	margin-top: 1%;
+	float:left;
+	width:30%;
+	height: 100%;
+}
+
+.mesia{
+	margin-top: 2%;
+	text-align: center;
+
+}
+li{
+	list-style-type: none;
+}
+p{
+	font-size: 20px;
+}
+
