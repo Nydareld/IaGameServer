@@ -14,6 +14,8 @@ from hashlib import sha256
 import os
 import requests
 import Server
+import time
+import random
 
 # from .models import Musique,Singer
 
@@ -293,6 +295,8 @@ def addPlayer(username, ia):
 @app.route("/randTestPlayers")
 def randTestPlayers():
 	for n in range(10):
+		rand = random.random()
+		time.sleep(rand*3)
 		thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
 		thJoueur.start()
 	return redirect(url_for("home"))
