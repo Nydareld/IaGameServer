@@ -27,6 +27,11 @@ class Ia(db.Model):
 	user_pseudo =db.Column(db.String(100)) 
 	name    =db.Column(db.String(100))  
 
+def removeIa(filename):
+	s = db.session()
+	m=s.query(Ia).filter(Ia.name==filename).all()
+	for c in m:
+   		db.session.delete(c)
 # class Singer(db.Model):
 # 	id		=db.Column(db.Integer, primary_key=True)
 # 	name 	=db.Column(db.String(100))

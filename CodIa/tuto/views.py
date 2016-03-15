@@ -9,7 +9,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
 from wtforms import PasswordField
-from .models import User, Ia
+from .models import User, Ia, removeIa
 from hashlib import sha256
 import os
 # from .models import Musique,Singer
@@ -67,6 +67,8 @@ def upload_file():
 @app.route("/suprIa/<string:filename>")
 def suprIa(filename):
 	os.remove('tuto/Ia/'+filename)
+	removeIa(filename)
+	db.session.commit()
 	return redirect(url_for('MesIA'))
 #quand nous cliquons sur une image spécifique 
 
