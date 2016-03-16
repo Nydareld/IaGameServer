@@ -6,24 +6,24 @@
 <div class="container">
 	<form class="form-horizontal" role="form" method="POST" action="{{ url_for('login') }}">
 		{{ form.hidden_tag() }}
-		
+
 		<div class="form-group">
 			<label form="pseudo" class="col-sm-2 control-label"> {{ form.pseudo.label }}</label>
 			<div class="col-sm-8">
 				{{ form.pseudo(size=50, class_="form-control", placeholder="Pseudo") }}
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<label for="password" class="col-sm-2 control-label"> {{ form.password.label }} </label>
 			<div class="col-sm-8">
 				{{ form.password(size=50, class_="form-control", placeholder="Password") }}
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-8">
-				<button type="submit" class="btn btn-default"> Se connecter </button>
+				<button type="submit" class="btn btn-default btn-primary"> Se connecter </button>
 			</div>
 		</div>
 	</form>
@@ -31,4 +31,4 @@
 		Pas encore insrit ? <a href="{{ url_for('ajout_client') }}" class="btn btn-xs btn-success" role="button">Inscription</a>
 	</div>
 </div>
-{% endblock %}	
+{% endblock %}
