@@ -6,6 +6,8 @@ from threading import Thread
 from threading import Barrier
 from threading import Lock
 from Server.Game import Sphere
+import time
+
 
 class GameThread():
 
@@ -34,6 +36,8 @@ class GameThread():
         #barriere de spheres a manger
         self.barrierTours = Barrier(0,action=self.updateNbTh)
 
+        self.debutTours = time.time()
+
     def randomPnj(self):
         if len(self.game.joueurs["PNJ"].spheres) < self.game.nbMaxSpherePnj:
             self.game.joueurs["PNJ"].spheres.append(
@@ -44,9 +48,16 @@ class GameThread():
     )
 
     def updateNbTh(self):
+
         self.data = self.game.toJson()
         self.barrierManger._parties = self.nbth
         self.barrierEtape._parties = self.nbth
+
+        tempsTour = time.time()-self.debutTours
+        if(tempsTour < 1/40):
+            print("temps du tour :"+str(tempsTour))
+            time.sleep(1/40-tempsTour)
+        self.debutTours = time.time()
 
     def update(self):
         self.data = self.game.toJson()

@@ -44,7 +44,7 @@ class PlayerThread(Thread):
             self.GameThread.lockmanger.release()
             #print("après release")
             self.GameThread.barrierManger.wait()
-            time.sleep(1/60)
+            # time.sleep(1/60)
 
 
     def executeIa(self):
