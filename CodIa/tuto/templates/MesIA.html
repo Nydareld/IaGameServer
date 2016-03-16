@@ -19,12 +19,38 @@
 
 
 
-      <ul>
+
+			<div class="cssTable">
+				<table>
+				    <thead>
+				        <tr>
+				            <th>Nom de l'IA</th>
+				            <th>Modifier</th>
+				            <th>Supprimer</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr>
+				            <td></td>
+				            <td></td>
+				            <td></td>
+				        </tr>
+
+
+
        {% for x in ia %}
        {% if x.user_pseudo==current_user.pseudo %}
-        <li>{{x.name}}<a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-remove"></button></a><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></li>{% endif %}
+			 <tr>
+				 <td>{{x.name}}</td>
+				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></td>
+				 <td><a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-remove"></button></a></td>
+		 	</tr>
+        {% endif %}
       {% endfor %}
-</ul>
+					</tbody>
+				</table>
+			</div>
+
   <a href="{{ url_for('upload_file') }}" ><button type="button" class="btn-primary" >Ajouter IA</button></br></a>
 
 	</div>
