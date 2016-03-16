@@ -1,10 +1,11 @@
 from .app import manager,db
 
+import Server
 
 @manager.command
 def loaddb(filename):
 	"""Creates the table and populates them with data."""
-	#Création de toutes les tables 
+	#Création de toutes les tables
 	db.create_all()
 
 	# import yaml
@@ -20,11 +21,11 @@ def loaddb(filename):
 	# 		o = Singer(name=a)
 	# 		db.session.add(o)
 	# 		singer[a] = o
-	
+
 
 	# genres={}
 	# for b in musiques:
-		
+
 	# 	for genre in b["genre"]:
 	# 		a=genre
 	# 		if(a not in genres):
@@ -47,10 +48,10 @@ def loaddb(filename):
 	# 	musiq[b["entryId"]]=o
 	# 	db.session.add(o)
 
-	
+
 	# db.session.commit()
 
-	
+
 
 
 
@@ -71,7 +72,7 @@ def loaddb(filename):
 		# for n in b["genre"]:
 		# 	o = Genre(name = n,musique_id=o.id)
 		# 	db.session.add(o)
-	
+
 
 
 
@@ -90,3 +91,16 @@ def newuser(usermail, username, usersurname, password):
 	u = User(username=username, usersurname=usersurname, usermail=usermail, password=m.hexdigest())
 	db.session.add(u)
 	db.session.commit()
+
+@manager.command
+def runGameServer(port=5555):
+	'''Creates and run a game server without web server '''
+	port = int(port)
+	try:
+		server = Server.GameServer(("",port))
+		print('Started httpserver on port '+str(port))
+		server.serve_forever()
+
+	except KeyboardInterrupt:
+	    print('^C received, shutting down the web server')
+	    server.socket.close()

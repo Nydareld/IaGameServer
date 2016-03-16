@@ -13,6 +13,9 @@ from .models import User, Ia, removeIa
 from hashlib import sha256
 import os
 import requests
+import Server
+import time
+import random
 
 # from .models import Musique,Singer
 
@@ -70,7 +73,7 @@ def upload_file():
 
 @app.route("/suprIa/<string:filename>")
 def suprIa(filename):
-	os.remove('tuto/IA/'+filename)
+	os.remove(app.config['UPLOAD_FOLDER']+filename)
 	removeIa(filename)
 	db.session.commit()
 	return redirect(url_for('MesIA'))
@@ -277,22 +280,26 @@ def logout():
 	logout_user()
 	return redirect(url_for('home'))
 
-
-
-
-
 @app.route("/data")
 def data():
-	ip = "127.0.0.1"
-	port = 5555
-	url = 'http://'+str(ip)+':'+str(port)
-	r= requests.get(url).text
-	print(r)
-	return r
+	return app.gameThread.data
 
+@app.route("/addPlayer/<string:username>/<string:ia>")
+def addPlayer(username, ia):
+	print("Nouveau Joueur sur le serveur par defaut, Username= "+username+", IA= "+ia)
+	#Créer le joueur
+	thJoueur = Server.PlayerThread(app.gameThread,username,ia)
+	thJoueur.start()
+	return redirect(url_for("home"))
 
-
-
+@app.route("/randTestPlayers")
+def randTestPlayers():
+	for n in range(10):
+		rand = random.random()
+		time.sleep(rand*3)
+		thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
+		thJoueur.start()
+	return redirect(url_for("home"))
 
 
 						########Contact######

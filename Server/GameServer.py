@@ -1,8 +1,8 @@
 #! /bin/ipython3
 
 from http.server import BaseHTTPRequestHandler,HTTPServer
-from GameThread import GameThread
-from PlayerThread import PlayerThread
+from Server.GameThread import GameThread
+from Server.PlayerThread import PlayerThread
 import json
 import cgi
 from urllib.parse import urlparse

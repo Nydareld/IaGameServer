@@ -13,36 +13,55 @@ window.addEventListener('resize', resize, false);
 
 
  function resize() {
-     stage.canvas.width = window.innerWidth-58;
-     stage.canvas.height = window.innerHeight-140;
+     stage.canvas.width = window.innerWidth-58;         //Largeur
+     stage.canvas.height = window.innerHeight-140;      //Hauteur
  }
+
 
 function init() {
 
     resize();
-    
- 
-
-  
 
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", stage);
-    $.getJSON("/static/sample.json", function(json) {
-      
-    $.each(json, function(key, val){
-     
-      for (j=0; j<val.length; j++){
-        
-         var circle = new createjs.Shape();
-         circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, (val[j][1])*3);
-         circle.x = val[j][0][0]/10;
-         circle.y = val[j][0][1]/10;
-         
-         
-         stage.addChild(circle);}
-    });
-     
-   stage.update();
+
+    var colors = new Array();
+
+    setInterval(function(){
+
+        stage.removeAllChildren();
+
+        $.ajax({
+            type: "GET",
+            url: "/data",
+            dataType: "json",
+            success: function(json) {
+                $.each(json, function(key, val){
+                    if( colors[key] == null ){
+                        colors[key] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                    }
+                    var max = 0;
+                    for (j=0; j<val.length; j++){
+
+                        var circle = new createjs.Shape();
+
+                        var size = Math.sqrt(val[j][1]);
+                        if(size/10>max){
+                            max = size/10;
+                        }
+                        circle.graphics.beginFill(colors[key]).drawCircle(0, 0, size/10);
+                        circle.x = val[j][0][0]/10000*stage.canvas.width;
+                        circle.y = val[j][0][1]/10000*stage.canvas.height;
+                        stage.addChild(circle);
+                    }
+                    console.log(key.concat("=".concat(max)));
+                })
+            }
+        });
+
+        stage.update();
+
+    }, 30);
+
     // this will show the info it in firebug console
-});
 }
