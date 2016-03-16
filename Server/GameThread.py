@@ -7,7 +7,7 @@ from threading import Barrier
 from threading import Lock
 from Server.Game import Sphere
 
-class GameThread(Thread):
+class GameThread():
 
     #initialisation du serveur
     def __init__(self, gamesize = 10000, nbSpherePnj=100, nbMaxSpherePnj=1000, minTailleSpheresPnj=100, maxTailleSpheresPnj=1000):
@@ -78,19 +78,3 @@ class GameThread(Thread):
 
         #print(res)
         self.aManger = []
-
-
-    def run(self):
-        while True:
-            #attendre le temps d'un tick
-
-            #si il y a un nouveau joueur on lajoute et on augmente la barriere
-
-            #execute le code de l'ia
-
-            #calcule les pos
-
-            #ajoute des spheres PNJ
-
-            #Join les bouboules
-            pass

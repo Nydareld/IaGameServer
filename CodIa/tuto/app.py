@@ -49,4 +49,4 @@ login_manager=LoginManager(app)
 import Server
 
 app.gameThread = Server.GameThread()
-app.gameThread.start()
+# app.gameThread.start()
