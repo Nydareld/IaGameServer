@@ -29,6 +29,8 @@ class GameThread():
 
         self.nbth = 0
 
+        self.joueursAAdd = []
+
         #B2 barriere d'étape
         self.barrierEtape = Barrier(0,action=self.randomPnj)
         #B1 barriere de tours
@@ -48,16 +50,13 @@ class GameThread():
     )
 
     def updateNbTh(self):
-
+        for joueur in self.joueursAAdd:
+            self.game.addJoueur(joueur)
+        self.joueursAAdd = []
         self.data = self.game.toJson()
         self.barrierManger._parties = self.nbth
         self.barrierEtape._parties = self.nbth
 
-        tempsTour = time.time()-self.debutTours
-        if(tempsTour < 1/60):
-            # print("temps du tour :"+str(tempsTour))
-            time.sleep(1/60-tempsTour)
-        self.debutTours = time.time()
 
     def update(self):
         self.data = self.game.toJson()
@@ -71,6 +70,11 @@ class GameThread():
 
 
     def manger(self):
+        tempsTour = time.time()-self.debutTours
+        if(tempsTour < 1/60):
+            # print("temps du tour :"+str(tempsTour))
+            time.sleep(1/60-tempsTour)
+        self.debutTours = time.time()
         #res = 0
         #for boule in self.game.joueurs.keys():
             #for x in boule:
