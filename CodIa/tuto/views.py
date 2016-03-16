@@ -73,7 +73,7 @@ def upload_file():
 
 @app.route("/suprIa/<string:filename>")
 def suprIa(filename):
-	os.remove('tuto/IA/'+filename)
+	os.remove(app.config['UPLOAD_FOLDER']+filename)
 	removeIa(filename)
 	db.session.commit()
 	return redirect(url_for('MesIA'))
