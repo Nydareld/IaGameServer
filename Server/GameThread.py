@@ -5,11 +5,12 @@ from Server.PlayerThread import PlayerThread
 from threading import Thread
 from threading import Barrier
 from threading import Lock
+from Server.Game import Sphere
 
 class GameThread(Thread):
 
     #initialisation du serveur
-    def __init__(self, gamesize = 10000, nbSpherePnj=100, nbMaxSpherePnj=1000, minTailleSpheresPnj=1, maxTailleSpheresPnj=3):
+    def __init__(self, gamesize = 10000, nbSpherePnj=100, nbMaxSpherePnj=1000, minTailleSpheresPnj=100, maxTailleSpheresPnj=1000):
         """
         gamesize                Taille du jeu en unités metriques (la carte est carrée)
         nbSpherePnj             nombre de spheres qu'a le PNJ au début
@@ -27,11 +28,20 @@ class GameThread(Thread):
         self.nbth = 0
 
         #B2 barriere d'étape
-        self.barrierEtape = Barrier(0)
+        self.barrierEtape = Barrier(0,action=self.randomPnj)
         #B1 barriere de tours
         self.barrierManger = Barrier(0,action=self.manger)
         #barriere de spheres a manger
         self.barrierTours = Barrier(0,action=self.updateNbTh)
+
+    def randomPnj(self):
+        if len(self.game.joueurs["PNJ"].spheres) < self.game.nbMaxSpherePnj:
+            self.game.joueurs["PNJ"].spheres.append(
+            Sphere(random.randint(1, gamesize),
+            random.randint(1, gamesize),
+            taille=random.randint(self.game.minTailleSpheresPnj,self.game.maxTailleSpheresPnj)
+        )
+    )
 
     def updateNbTh(self):
         self.data = self.game.toJson()
@@ -55,7 +65,7 @@ class GameThread(Thread):
             #for x in boule:
                 #res+=1
         #print(res)
-        
+
         for dico in self.aManger:
             for joueur in dico:
                 for sphere in dico[joueur]:

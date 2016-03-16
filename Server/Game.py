@@ -130,7 +130,7 @@ class Sphere:
         self.vectVitesse = [0,0]
         self.vectAcceleration = [0,0]
         self.vectPos = [posX,posY]
-        self.t=0
+        #self.t=0
 
     def getInertie(self):
         return 1/2*taille*vitesse**2
@@ -144,7 +144,7 @@ class Sphere:
         x+= random.randint(-100,100)
         y+= random.randint(-100,100)
         #print("x="+str(int(x))+"y="+str(int(y)))
-        self.t+=1/30
+        #self.t+=1/30
 
         if x > gamesize :
             x=gamesize
@@ -185,7 +185,7 @@ class Sphere:
 
     def join(self,sphere2,player2):
         if self.canJoin(sphere2):
-            print("On a mangé, D="+str(self.distanceTo(sphere2))+" ,R="+str(self.rayon()))
+            #print("On a mangé, D="+str(self.distanceTo(sphere2))+" ,R="+str(self.rayon()))
             self.taille += (sphere2.taille)*1.5
             return [player2,sphere2]
         return None
