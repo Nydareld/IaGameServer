@@ -65,3 +65,4 @@ target/
 ._.DS_Store
 
 IA/
+*.db
