@@ -32,6 +32,7 @@ def mkpath(p):
 ### chargement ou création de la bd
 
 from flask.ext.sqlalchemy import SQLAlchemy
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = (
 	'sqlite:///'+mkpath('../../CodIA.db'))
 db=SQLAlchemy(app)
