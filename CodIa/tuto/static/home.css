@@ -16,6 +16,9 @@ html, body {
   font-family: 'Merriweather', sans-serif;
   padding: 1em;
 }
+h2{
+	text-align: center;
+}
 .btn-success{
   background-color: #0099ff;
   border: none;

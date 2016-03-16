@@ -1,7 +1,4 @@
-h2{
-	text-align: center;
 
-}
 
 .btn-primary {
     background-color: #FF8C00;
@@ -17,12 +14,7 @@ h2{
 	margin-top: 15px;
 }
 
-aside{
-	margin-top: 1%;
-	float:left;
-	width:30%;
-	height: 100%;
-}
+
 
 .mesia{
 	margin-top: 2%;
@@ -35,7 +27,18 @@ li{
 p{
 	font-size: 20px;
 }
-
+.table-striped{
+	text-align:left;
+}
+.glyphicon-trash{
+	color: red;
+	width: 50px;
+	height: 30px;
+}
+.glyphicon-pencil{
+	width: 50px;
+	height: 30px;
+}
 .container{
     margin-top:70px;
 }
@@ -60,7 +63,4 @@ p{
 }
 .image-preview-input-title {
     margin-left:2px;
-}
-.cssTable{
-	
 }

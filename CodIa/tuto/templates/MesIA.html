@@ -9,19 +9,11 @@
 	{% block content %}
 
 	{% block main %}
-	<h2>Mes Intelligences Artificielle	</h2>
-	<aside>
-	<div class="button">
+	<h2>Mes Intelligences Artificielles</h2>
 
-    </div>
-</aside>
 	<div class="mesia">
-
-
-
-
-			<div class="cssTable">
-				<table>
+			<div class=container>
+				<table class="table table-striped">
 				    <thead>
 				        <tr>
 				            <th>Nom de l'IA</th>
@@ -30,38 +22,21 @@
 				        </tr>
 				    </thead>
 				    <tbody>
-				        <tr>
-				            <td></td>
-				            <td></td>
-				            <td></td>
-				        </tr>
-
-
 
        {% for x in ia %}
        {% if x.user_pseudo==current_user.pseudo %}
 			 <tr>
 				 <td>{{x.name}}</td>
 				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></td>
-				 <td><a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-remove"></button></a></td>
+				 <td><a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
 		 	</tr>
         {% endif %}
       {% endfor %}
 					</tbody>
 				</table>
 			</div>
-
   <a href="{{ url_for('upload_file') }}" ><button type="button" class="btn-primary" >Ajouter IA</button></br></a>
-
 	</div>
 
-
-
 		{% endblock %}
-
-
-
-
-
-
 	{% endblock %}
