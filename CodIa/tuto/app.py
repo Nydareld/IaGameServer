@@ -4,7 +4,7 @@
 from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 import os
-UPLOAD_FOLDER = 'tuto/IA'
+UPLOAD_FOLDER = 'CodIa/tuto/IA/'
 ALLOWED_EXTENSIONS = set(['txt', 'py'])
 app=Flask(__name__)
 app.debug=True
