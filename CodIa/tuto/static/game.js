@@ -47,7 +47,7 @@ function init() {
                     }
                     for (j=0; j<val.length; j++){
 
-                        size = Math.sqrt(val[j][1]);
+                        size = Math.sqrt(val[j][1])/10;
                         if(size>max){
                             max = size;
                         }
