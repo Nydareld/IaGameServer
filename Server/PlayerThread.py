@@ -22,8 +22,8 @@ class PlayerThread(Thread):
     def run(self):
         while True:
             #attend le début du tours
-            #print("Barriere debut de tours "+str(threading.current_thread().name))
-            #print(self.GameThread.barrierTours.parties)
+            # print("Barriere debut de tours "+str(threading.current_thread().name))
+            # print(self.GameThread.barrierTours.parties)
             self.GameThread.barrierTours.wait()
             #execute le code de l'IA
             self.executeIa()

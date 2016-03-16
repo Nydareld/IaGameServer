@@ -69,9 +69,12 @@ class GameThread(Thread):
         for dico in self.aManger:
             for joueur in dico:
                 for sphere in dico[joueur]:
-                    print(self.game.joueurs[joueur])
-                    self.game.joueurs[joueur].spheres.remove(sphere)
-                    #res-=1
+                    # print(self.game.joueurs[joueur])
+                    try :
+                        self.game.joueurs[joueur].spheres.remove(sphere)
+                    except:
+                        pass
+                        #res-=1
 
         #print(res)
         self.aManger = []
