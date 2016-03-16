@@ -68,7 +68,7 @@ def upload_file():
             db.session.commit()
             return redirect(url_for('MesIA'))
 
-    return render_template("addIA.html")
+    return render_template("addIA.html",tab="MesIA")
 
 
 @app.route("/suprIa/<string:filename>")
