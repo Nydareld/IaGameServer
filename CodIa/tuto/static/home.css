@@ -16,8 +16,29 @@ html, body {
   font-family: 'Merriweather', sans-serif;
   padding: 1em;
 }
+.btn-success{
+  background-color: #0099ff;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
 
-
+.btn-primary {
+    background-color: #FF8C00;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.btn-primary:hover{
+  background-color: #ff8000;
+  box-shadow:2px 2px 1px #888888;
+}
 div.sample{
 
 	text-align: : center;
