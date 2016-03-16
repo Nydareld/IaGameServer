@@ -50,18 +50,18 @@ class GameThread(Thread):
 
 
     def manger(self):
-        res = 0
-        for boule in self.game.joueurs.keys():
-            for x in boule:
-                res+=1
+        #res = 0
+        #for boule in self.game.joueurs.keys():
+            #for x in boule:
+                #res+=1
         #print(res)
-
+        
         for dico in self.aManger:
             for joueur in dico:
                 for sphere in dico[joueur]:
                     print(self.game.joueurs[joueur])
                     self.game.joueurs[joueur].spheres.remove(sphere)
-                    res-=1
+                    #res-=1
 
         #print(res)
         self.aManger = []

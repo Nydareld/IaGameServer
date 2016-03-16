@@ -67,52 +67,52 @@ class Player:
                 Sphere(
                     random.randint(1, gamesize),
                     random.randint(1, gamesize),
-                    taille=150))
+                    taille=random.randint(10000,100000)))
             self.spheres.append(
                 Sphere(
                     random.randint(1, gamesize),
                     random.randint(1, gamesize),
-                    taille=1500))
+                    random.randint(10000,100000)))
             self.spheres.append(
                 Sphere(
                     random.randint(1, gamesize),
                     random.randint(1, gamesize),
-                    taille=2090))
-            self.spheres.append(
-                Sphere(
-                    random.randint(1, gamesize),
-                    random.randint(1, gamesize),
-                    taille=1320))
-            self.spheres.append(
-                Sphere(
-                    random.randint(1, gamesize),
-                    random.randint(1, gamesize),
-                    taille=1328))
-            self.spheres.append(
-                Sphere(
-                    random.randint(1, gamesize),
-                    random.randint(1, gamesize),
-                    taille=2225))
-            self.spheres.append(
-                Sphere(
-                    random.randint(1, gamesize),
-                    random.randint(1, gamesize),
-                    taille=1211))
-            self.spheres.append(
-                Sphere(
-                    random.randint(1, gamesize),
-                    random.randint(1, gamesize),
-                    taille=2512))
-            self.spheres.append(
-                Sphere(
-                    random.randint(1, gamesize),
-                    random.randint(1, gamesize),
-                    taille=1230))
-            self.spheres.append(
-                Sphere(
-                    random.randint(1, gamesize),
-                    random.randint(1, gamesize),
-                    taille=1000))
+                    random.randint(10000,100000)))
+            # self.spheres.append(
+            #     Sphere(
+            #         random.randint(1, gamesize),
+            #         random.randint(1, gamesize),
+            #         taille=1320))
+            # self.spheres.append(
+            #     Sphere(
+            #         random.randint(1, gamesize),
+            #         random.randint(1, gamesize),
+            #         taille=1328))
+            # self.spheres.append(
+            #     Sphere(
+            #         random.randint(1, gamesize),
+            #         random.randint(1, gamesize),
+            #         taille=2225))
+            # self.spheres.append(
+            #     Sphere(
+            #         random.randint(1, gamesize),
+            #         random.randint(1, gamesize),
+            #         taille=1211))
+            # self.spheres.append(
+            #     Sphere(
+            #         random.randint(1, gamesize),
+            #         random.randint(1, gamesize),
+            #         taille=2512))
+            # self.spheres.append(
+            #     Sphere(
+            #         random.randint(1, gamesize),
+            #         random.randint(1, gamesize),
+            #         taille=1230))
+            # self.spheres.append(
+            #     Sphere(
+            #         random.randint(1, gamesize),
+            #         random.randint(1, gamesize),
+            #         taille=1000))
 
 class Sphere:
     """
@@ -139,9 +139,10 @@ class Sphere:
         x=self.vectPos[0]+self.vectVitesse[0]+1/2*self.vectAcceleration[0]**2
         y=self.vectPos[1]+self.vectVitesse[1]+1/2*self.vectAcceleration[1]**2
 
-        x+=50*math.cos(self.t)#La ca tourne(pour les tests)
-        y+=50*math.sin(self.t)
-
+        #x+=50*math.cos(self.t)#La ca tourne(pour les tests)
+        #y+=50*math.sin(self.t)
+        x+= random.randint(-100,100)
+        y+= random.randint(-100,100)
         #print("x="+str(int(x))+"y="+str(int(y)))
         self.t+=1/30
 
@@ -168,7 +169,8 @@ class Sphere:
         return ((1/self.taille)*1000)+10
 
     def rayon(self):
-        return math.sqrt(self.taille)/2
+        return math.sqrt(self.taille)
+
 
     def distanceTo(self,sphere2):
         #print(str(math.sqrt((sphere2.vectPos[0]-self.vectPos[0])**2  + (sphere2.vectPos[1]-self.vectPos[1])**2 )))
@@ -184,6 +186,6 @@ class Sphere:
     def join(self,sphere2,player2):
         if self.canJoin(sphere2):
             print("On a mangé, D="+str(self.distanceTo(sphere2))+" ,R="+str(self.rayon()))
-            self.taille += sphere2.taille
+            self.taille += (sphere2.taille)*1.5
             return [player2,sphere2]
         return None
