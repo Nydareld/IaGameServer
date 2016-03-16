@@ -178,7 +178,7 @@ class Sphere:
 
     def canJoin(self,sphere2):
         return (
-            ( self.distanceTo(sphere2)< self.rayon()/1.2 ) # la distance entre les 2 centres < la moité du rayon de l'autre
+            ( self.distanceTo(sphere2)< self.rayon() ) # la distance entre les 2 centres < la moité du rayon de l'autre
             and                                                           # ET
             (0.8*self.taille > sphere2.taille)                            # la sphere2 fais moins de 80% de la taille de cette sphere ci
             )
