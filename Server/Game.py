@@ -136,31 +136,48 @@ class Sphere:
         return 1/2*taille*vitesse**2
 
     def posNextTick(self):
+
+        #### Positions accélérées selon le vecteur accélération
         x=self.vectPos[0]+self.vectVitesse[0]+1/2*self.vectAcceleration[0]**2
         y=self.vectPos[1]+self.vectVitesse[1]+1/2*self.vectAcceleration[1]**2
 
+        #### Positions translatées aléatoires
+        # x+= random.randint(-100,100)
+        # y+= random.randint(-100,100)
+
+        #### Positions translaté de facon circulaires
         #x+=50*math.cos(self.t)#La ca tourne(pour les tests)
         #y+=50*math.sin(self.t)
-        x+= random.randint(-100,100)
-        y+= random.randint(-100,100)
+
+        #### Modification aléatoire du vecteur accélération
+        self.vectAcceleration[0]= random.randint(-3,3)
+        self.vectAcceleration[1]= random.randint(-3,3)
         #print("x="+str(int(x))+"y="+str(int(y)))
         #self.t+=1/30
 
         if x > gamesize :
             x=gamesize
+            self.vectVitesse[0]=0
+            self.vectAcceleration[0]=0
         if y > gamesize :
+            self.vectVitesse[1]=0
+            self.vectAcceleration[1]=0
             y=gamesize
 
         if x < 0 :
             x=0
+            self.vectVitesse[0]=0
+            self.vectAcceleration[0]=0
         if y < 0 :
             y=0
+            self.vectVitesse[1]=0
+            self.vectAcceleration[1]=0
         return [int(x),int(y)]
 
     def vitesseNextTick(self):
         vx=self.vectVitesse[0]+self.vectAcceleration[0]
         vy=self.vectVitesse[1]+self.vectAcceleration[1]
-        return [int(vx),int(vy)]
+        return [vx,vy]
 
     def normeVitesse(self):
         return math.sqrt(self.vectVitesse[0]**2 + self.vectVitesse[1]**2 )
