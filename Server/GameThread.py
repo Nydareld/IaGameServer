@@ -54,9 +54,9 @@ class GameThread():
         self.barrierEtape._parties = self.nbth
 
         tempsTour = time.time()-self.debutTours
-        if(tempsTour < 1/40):
-            print("temps du tour :"+str(tempsTour))
-            time.sleep(1/40-tempsTour)
+        if(tempsTour < 1/60):
+            # print("temps du tour :"+str(tempsTour))
+            time.sleep(1/60-tempsTour)
         self.debutTours = time.time()
 
     def update(self):
