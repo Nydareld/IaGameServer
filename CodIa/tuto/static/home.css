@@ -128,4 +128,18 @@ to { transform: rotateZ(.5deg) }
 #gameCanvas{
     border: 3px #999999 solid;
     border-radius: 5px;
+    display: inline-block;
+}
+
+#gameDiv{
+    display: inline-block;
+}
+
+#scoreboard{
+    padding: 15px;
+    position: fixed;
+    display: inline-block;
+    border: 3px #999999 solid;
+    border-radius: 5px;
+    width: 300px;
 }
