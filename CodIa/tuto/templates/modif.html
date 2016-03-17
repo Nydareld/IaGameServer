@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='MesIA.css') }}">
+{% endblock %}
+{% block content %}
+
+{% block main %}
+<h2>Modification de l'IA : {{ file }}</h2>
+<form role="form" method="POST" action="{{ url_for('save_file',filename= file ) }}">
+	<textarea name="textarea" id="area" class="{{fic}}" rows="20" cols="132">
+	{{fic}}
+	</textarea>
+	<div class="mesia">
+		<button type="input" class="btn-primary">Sauvegarder mon fichier</button>
+	</div>
+</form>
+{% endblock %}
+{% endblock %}
+
+{% block script %}
+	{{super()}}
+{% endblock %}
