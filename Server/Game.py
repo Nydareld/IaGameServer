@@ -46,6 +46,7 @@ class Game:
                     sphere.vectPos,
                     sphere.taille
                     ])
+            res[joueur.username]
         return json.dumps(res,default=lambda o: o.__dict__)
 
 
@@ -62,6 +63,7 @@ class Player:
         self.username = username
         self.spheres = []
         self.ia = ia
+        self.score = 0
         if username != "PNJ":
             self.spheres.append(
                 Sphere(
@@ -113,6 +115,15 @@ class Player:
             #         random.randint(1, gamesize),
             #         random.randint(1, gamesize),
             #         taille=1000))
+
+
+    def updateScore(self):
+        sumtaille = 0
+        for sphere in self.shperes:
+            sumtaille += sphere.taille
+        if sumtaille > self.score:
+            self.score = sumtaille
+
 
 class Sphere:
     """

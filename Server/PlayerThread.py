@@ -64,7 +64,8 @@ class PlayerThread(Thread):
             # else :
             #     print("\033[92m non caca \033[0m")
             sphere.vectPos = sphere.posNextTick()
-        pass
+
+        self.joueur.updateScore() 
 
     def join(self):
         try:
