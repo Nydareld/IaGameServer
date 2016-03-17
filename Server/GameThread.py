@@ -27,6 +27,7 @@ class GameThread():
         self.data = self.game.toJson()
         self.scores = self.game.scoresJson()
 
+
         self.aManger = []
 
         self.nbth = 0
