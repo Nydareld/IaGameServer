@@ -23,7 +23,9 @@ class GameThread():
         self.lockmanger = Lock()
         Thread.__init__(self)
         self.game = Game(gamesize, nbSpherePnj, nbMaxSpherePnj, minTailleSpheresPnj, maxTailleSpheresPnj)
+
         self.data = self.game.toJson()
+        self.scores = self.game.scoresJson()
 
         self.aManger = []
 

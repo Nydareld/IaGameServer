@@ -292,6 +292,10 @@ def logout():
 def data():
 	return app.gameThread.data
 
+@app.route("/scores")
+def scores():
+	return app.gameThread.scores
+
 @app.route("/addPlayer/<string:username>/<string:ia>")
 def addPlayer(username, ia):
 	print("Nouveau Joueur sur le serveur par defaut, Username= "+username+", IA= "+ia)

@@ -49,6 +49,11 @@ class Game:
             res[joueur.username]
         return json.dumps(res,default=lambda o: o.__dict__)
 
+    def scoresJson(self):
+        res = dict()
+        for joueur in self.joueurs.values():
+            res[joueur.username] = joueur.score
+        return json.dumps(res,default=lambda o: o.__dict__)
 
 class Player:
     """
