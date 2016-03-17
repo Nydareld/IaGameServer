@@ -69,8 +69,9 @@ class Player:
         self.username = username
         self.spheres = []
         self.ia = ia
-        self.score = 0
-        self.poidTotal = 0
+        self.score = 1
+        self.poidTotal = 1
+        self.end = False
         if username != "PNJ":
             self.spheres.append(
                 Sphere(

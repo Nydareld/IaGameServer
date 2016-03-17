@@ -307,10 +307,11 @@ def addPlayer(username, ia):
 @app.route("/randTestPlayers")
 def randTestPlayers():
 	def createLesJoueurs():
-		for n in range(10):
+		joueurs = ["Nico","Clem","Flavie","theo","Marine","aifpe"]
+		for n in joueurs:
 			rand = random.random()
 			time.sleep(rand*3)
-			thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
+			thJoueur = Server.PlayerThread(app.gameThread,n,"Rand")
 			thJoueur.start()
 
 	th = Thread(target=createLesJoueurs)

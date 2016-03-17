@@ -1,5 +1,7 @@
 from Server.Game import *
 from threading import Thread
+from CodIa.tuto.models import User
+from CodIa.tuto.app import db
 import threading
 import time
 
@@ -46,7 +48,21 @@ class PlayerThread(Thread):
             self.GameThread.lockmanger.release()
             #print("après release")
             self.GameThread.barrierManger.wait()
+            if self.joueur.poidTotal<=0 and not self.joueur.end:
+                self.joueur.end = True
+                print("\033[91m Le Joueur "+self.joueur.username +" à perdu \033[0m")
+                user = User.query.filter_by(pseudo=self.joueur.username).first()
+                if user is not None:
+                    print("\033[91m Zbra \033[0m")
+
+                    user.score += self.joueur.score
+                    db.session.commit()
             # time.sleep(1/60)
+        # self.GameThread.nbth-=1
+        # self.GameThread.barrierTours._parties -= 1
+
+
+
 
 
     def executeIa(self):
@@ -65,7 +81,7 @@ class PlayerThread(Thread):
             #     print("\033[92m non caca \033[0m")
             sphere.vectPos = sphere.posNextTick()
 
-        self.joueur.updateScore() 
+        self.joueur.updateScore()
 
     def join(self):
         try:
