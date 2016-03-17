@@ -52,7 +52,7 @@
       <!-- Login  -->
       <ul class="nav navbar-nav navbar-right">
 		{% if current_user.is_authenticated %}
-		<li><a href="#"><span class="glyphicon glyphicon-user"></span> Bonjour {{ current_user.pseudo }}</a></li>
+		<li {% if tab == "MyProfil" %} id="actif" class="active" {% endif %}><a href="{{ url_for('MyProfil') }}"><span class="glyphicon glyphicon-user"></span> Bonjour {{ current_user.pseudo }}</a></li>
         <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in"></span> Déconnexion</a></li>
 
 		{% else %}

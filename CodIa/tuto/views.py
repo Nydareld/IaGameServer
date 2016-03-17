@@ -45,6 +45,9 @@ def classement():
 def reglement():
 	return render_template("reglement.html",tab="Règles")
 						####### musiques #######
+@app.route("/myprofil")
+def MyProfil():
+	return render_template("profile.html", tab="MyProfil")
 
 @app.route("/MesIA")
 def MesIA():
@@ -77,6 +80,9 @@ def suprIa(filename):
 	removeIa(filename)
 	db.session.commit()
 	return redirect(url_for('MesIA'))
+
+
+
 #quand nous cliquons sur une image spécifique
 
 # @app.route("/one_music/<int:id>/")
