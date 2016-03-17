@@ -52,8 +52,7 @@ class Game:
     def scoresJson(self):
         res = dict()
         for joueur in self.joueurs.values():
-            if joueur.username != "PNJ":
-                res[joueur.username] = [joueur.score,joueur.poidTotal]
+            res[joueur.username] = joueur.score
         return json.dumps(res,default=lambda o: o.__dict__)
 
 class Player:
@@ -131,7 +130,6 @@ class Player:
             sumtaille += sphere.taille
         if sumtaille > self.score:
             self.score = sumtaille
-        self.poidTotal = sumtaille
 
 
 class Sphere:
