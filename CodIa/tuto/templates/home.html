@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <!-- <div id="servermsg"><h1>Message log:</h1></div> -->
-<div class="game">
+<div class="game" id="gameDiv">
 	<body onload="init();">
-	 <canvas id="gameCanvas" width="500" height="300"></canvas>
+	 <div id="gameCanvas" width="500" height="300"></div>
 	</body>
 
 </div>
 {% endblock %}
 {% block scripts %}
 	{{super()}}
-	<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="{{url_for('.static', filename='game.js')}}"></script>
 {% endblock %}
