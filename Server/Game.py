@@ -183,7 +183,7 @@ class Sphere:
         return math.sqrt(self.vectVitesse[0]**2 + self.vectVitesse[1]**2 )
 
     def normeVitesseMax(self):
-        return ((1/self.taille)*1000)+10
+        return ((1/self.taille)*10000000)+10
 
     def rayon(self):
         return math.sqrt(self.taille)

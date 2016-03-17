@@ -57,8 +57,12 @@ class PlayerThread(Thread):
         # print(str(self.joueur.spheres[0].normeVitesse()) +"    "+ str(self.joueur.spheres[0].normeVitesseMax()))
         for sphere in  self.joueur.spheres:
             sphere.vectVitesse = sphere.vitesseNextTick()
-            # if sphere.normeVitesse() > sphere.normeVitesseMax():
+            if sphere.normeVitesse() > sphere.normeVitesseMax():
                 # print("\033[91m caca \033[0m")
+                sphere.vectVitesse[0] *= 0.9
+                sphere.vectVitesse[1] *= 0.9
+            # else :
+            #     print("\033[92m non caca \033[0m")
             sphere.vectPos = sphere.posNextTick()
         pass
 
