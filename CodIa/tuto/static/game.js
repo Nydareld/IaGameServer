@@ -6,17 +6,29 @@ var tick=0;
 var ip = "127.0.0.1"
 var port = 5555
 
+var width = window.innerWidth-58
+var height = window.innerHeight-140
+
+var ratio = 1/10000*height
+
 window.addEventListener('resize', resize, false);
 
 var svg = d3.select("#gameCanvas").append("svg")
-    .attr("width", window.innerWidth-58)
-    .attr("height", window.innerHeight-140);
+    .attr("width", height)
+    .attr("height", height);
 
 
 
 function resize() {
-    $("#gameCanvas").width(window.innerWidth-58);         //Largeur
-    $("#gameCanvas").height(window.innerHeight-140);      //Hauteur
+
+
+    width = window.innerWidth-58
+    height = window.innerHeight-140
+
+    ratio = 1/10000*height
+
+    $("#gameCanvas").width(height);         //Largeur
+    $("#gameCanvas").height(height);      //Hauteur
     // console.log("Zbra");
  }
 
@@ -47,12 +59,12 @@ function init() {
                     }
                     for (j=0; j<val.length; j++){
 
-                        size = Math.sqrt(val[j][1])/10;
+                        size = Math.sqrt(val[j][1])*ratio;
                         if(size>max){
                             max = size;
                         }
-                        x = val[j][0][0]/10000*(window.innerWidth-58);
-                        y = val[j][0][1]/10000*(window.innerHeight-140);
+                        x = val[j][0][0]/10000*(height);
+                        y = val[j][0][1]/10000*(height);
                         data.push({
                             "x":x,
                             "y":y,

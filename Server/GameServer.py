@@ -47,4 +47,4 @@ class GameServer(HTTPServer):
         HTTPServer.__init__(self, server_address, myHandler)
 
         self.gameThread = GameThread()
-        self.gameThread.start()
+        # self.gameThread.start()

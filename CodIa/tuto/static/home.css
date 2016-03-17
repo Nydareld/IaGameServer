@@ -127,5 +127,5 @@ to { transform: rotateZ(.5deg) }
 
 #gameCanvas{
     border: 3px #999999 solid;
-    border-radius: 15px;
+    border-radius: 5px;
 }

@@ -14,7 +14,7 @@ class PlayerThread(Thread):
         self.ia = ia
         self.joueur = Player(ia,username,GameThread.game.gamesize)
         #GameThread.game.joueurs[username]=Player(ia,username,GameThread.game.gamesize)
-        GameThread.game.addJoueur(self.joueur)
+        GameThread.joueursAAdd.append(self.joueur)
 
         GameThread.nbth += 1
 
@@ -37,36 +37,47 @@ class PlayerThread(Thread):
             self.GameThread.barrierEtape.wait()
 
             agraille = self.join()
+
             #print("avant acquire")
+            self.GameThread.barrierEtape.wait()
             self.GameThread.lockmanger.acquire()
             self.GameThread.aManger.append(agraille)
             #print("pendant")
             self.GameThread.lockmanger.release()
             #print("après release")
             self.GameThread.barrierManger.wait()
-            time.sleep(1/60)
+            # time.sleep(1/60)
 
 
     def executeIa(self):
         pass
 
     def calculePos(self):
+        # print("\033[91m caca \033[0m")
+        # print(str(self.joueur.spheres[0].normeVitesse()) +"    "+ str(self.joueur.spheres[0].normeVitesseMax()))
         for sphere in  self.joueur.spheres:
+            sphere.vectVitesse = sphere.vitesseNextTick()
+            # if sphere.normeVitesse() > sphere.normeVitesseMax():
+                # print("\033[91m caca \033[0m")
             sphere.vectPos = sphere.posNextTick()
         pass
 
     def join(self):
-        listjoueur = dict()
-        for sphere in  self.joueur.spheres:
-            for joueur2 in self.GameThread.game.joueurs.values():
-                for sphere2 in joueur2.spheres:
-                    res = sphere.join(sphere2,joueur2)
-                    if(res != None):
-                        # if(not (listjoueur[res[0].username] in locals)):
-                        #     listjoueur[res[0].username] = []
-                        try:
-                            listjoueur[res[0].username].append(res[1])
-                        except KeyError:
-                            listjoueur[res[0].username] = []
-                            listjoueur[res[0].username].append(res[1])
+        try:
+            listjoueur = dict()
+            for sphere in  self.joueur.spheres:
+                for joueur2 in self.GameThread.game.joueurs.values():
+                    for sphere2 in joueur2.spheres:
+                        res = sphere.join(sphere2,joueur2)
+                        if(res != None):
+                            # if(not (listjoueur[res[0].username] in locals)):
+                            #     listjoueur[res[0].username] = []
+                            try:
+                                listjoueur[res[0].username].append(res[1])
+                            except KeyError:
+                                listjoueur[res[0].username] = []
+                                listjoueur[res[0].username].append(res[1])
+        except RuntimeError:
+             print("\033[91m Nb de Thread :"+str(self.GameThread.barrierManger._parties)+", "+str(self.GameThread.nbth)+" \033[0m")
+
         return listjoueur

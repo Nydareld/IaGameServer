@@ -16,6 +16,8 @@ import requests
 import Server
 import time
 import random
+from threading import Thread
+
 
 # from .models import Musique,Singer
 
@@ -300,11 +302,15 @@ def addPlayer(username, ia):
 
 @app.route("/randTestPlayers")
 def randTestPlayers():
-	for n in range(10):
-		rand = random.random()
-		time.sleep(rand*3)
-		thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
-		thJoueur.start()
+	def createLesJoueurs():
+		for n in range(10):
+			rand = random.random()
+			time.sleep(rand*3)
+			thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
+			thJoueur.start()
+
+	th = Thread(target=createLesJoueurs)
+	th.start()
 	return redirect(url_for("home"))
 
 
