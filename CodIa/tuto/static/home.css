@@ -46,6 +46,17 @@ h2{
 .btn-save{
   text-align: center;
 }
+aside{
+  font-size: 50px;
+  float: right;
+  padding-right: 100px;
+  clear: auto;
+  margin-top: 10%;
+
+}
+article>section{
+  float: left;
+}
 
 div.sample{
 
@@ -95,6 +106,11 @@ width: 60%;
 
 #acceuil{
 	border-radius:10px;
+}
+
+.container{
+  width:800px;
+  height:200px;
 }
 
 .portfolio-thumb-shake img:hover {
