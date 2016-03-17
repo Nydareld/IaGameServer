@@ -41,6 +41,8 @@ function init() {
     // createjs.Ticker.addEventListener("tick", stage);
 
     var colors = new Array();
+    var toAdd = "";
+
 
 
     // Fonction d'affichage
@@ -78,7 +80,7 @@ function init() {
                     }
                     // console.log(key.concat("=".concat(max)));
                 })
-                console.log(max);
+                // console.log(max);
 
                 d3.selectAll("svg > *").remove();
 
@@ -108,32 +110,43 @@ function init() {
     setInterval(function(){
         resize();
 
-        $(".player").remove();
         $.ajax({
             type: "GET",
             url: "/scores",
             dataType: "json",
             success: function(json) {
-                $.each(json, function(key, val){
-                    if( colors[key] == null ){
-                        colors[key] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                var nb =0;
+
+                var sorted = Object.keys(json).map(function(key) {
+                    return [key, json[key]];
+                });
+
+                sorted.sort(function(first, second) {
+                    return second[1] - first[1];
+                });
+
+                $.each(sorted, function(key, val){
+                    if( colors[val[0]] == null ){
+                        colors[val[0]] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
                     }
                     // afficher
-                    $("#playerScores").append(
-                        "<div class=\"player\">"+
-                        "<div class=\"col-md-2 playerScoresItem\" style=\"background-color:"+colors[key]+";\"></div>"+
-                        "<div class=\"col-md-6 playerScoresItem\">"+key+"</div>"+
-                        "<div class=\"col-md-4 playerScoresItem\">"+val+"</div>"+
-                        "</div>"
-                    );
+                    toAdd +="<div class=\"player\">"+
+                        "<div class=\"col-md-1 playerScoresItem\">"+key+"</div>"+
+                        "<div class=\"col-md-1 playerScoresItem\" style=\"background-color:"+colors[val[0]]+";\"></div>"+
+                        "<div class=\"col-md-5 playerScoresItem\">"+val[0]+"</div>"+
+                        "<div class=\"col-md-4 playerScoresItem\">"+val[1]+"</div>"+
+                        "</div>";
 
-
-
-                 })
+                 });
              }
+
+
          });
 
-     }, 500);
+         $(".player").remove();
+         $("#playerScores").append(toAdd);
+         toAdd = "";
+     }, 1000);
 
 
     // this will show the info it in firebug console
