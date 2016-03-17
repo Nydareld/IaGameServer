@@ -143,3 +143,6 @@ to { transform: rotateZ(.5deg) }
     border-radius: 5px;
     width: 300px;
 }
+.playerScoresItem{
+    height: 20px;
+}

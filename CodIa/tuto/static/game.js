@@ -42,6 +42,8 @@ function init() {
 
     var colors = new Array();
 
+
+    // Fonction d'affichage
     setInterval(function(){
         resize();
 
@@ -100,6 +102,38 @@ function init() {
         });
 
      }, 30);
+
+
+     // fonction des scores
+    setInterval(function(){
+        resize();
+
+        $(".player").remove();
+        $.ajax({
+            type: "GET",
+            url: "/scores",
+            dataType: "json",
+            success: function(json) {
+                $.each(json, function(key, val){
+                    if( colors[key] == null ){
+                        colors[key] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                    }
+                    // afficher
+                    $("#playerScores").append(
+                        "<div class=\"player\">"+
+                        "<div class=\"col-md-2 playerScoresItem\" style=\"background-color:"+colors[key]+";\"></div>"+
+                        "<div class=\"col-md-6 playerScoresItem\">"+key+"</div>"+
+                        "<div class=\"col-md-4 playerScoresItem\">"+val+"</div>"+
+                        "</div>"
+                    );
+
+
+
+                 })
+             }
+         });
+
+     }, 500);
 
 
     // this will show the info it in firebug console
