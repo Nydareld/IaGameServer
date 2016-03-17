@@ -124,7 +124,7 @@ class Player:
 
     def updateScore(self):
         sumtaille = 0
-        for sphere in self.shperes:
+        for sphere in self.spheres:
             sumtaille += sphere.taille
         if sumtaille > self.score:
             self.score = sumtaille

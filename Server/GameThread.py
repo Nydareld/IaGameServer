@@ -56,6 +56,7 @@ class GameThread():
             self.game.addJoueur(joueur)
         self.joueursAAdd = []
         self.data = self.game.toJson()
+        self.scores = self.game.scoresJson()
         self.barrierManger._parties = self.nbth
         self.barrierEtape._parties = self.nbth
 
