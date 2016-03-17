@@ -40,6 +40,10 @@
         <li {% if tab == "Règles" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('reglement') }}"><span class="glyphicon glyphicon-book"></span> Réglement</a></li>
         <li {% if tab == "Apropos" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('apropos') }}"><span class="glyphicon glyphicon-info-sign"></span> A propos</a></li>
       </ul>
+      {% if current_user.admin %}
+      <li {% if tab == "Apropos" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('apropos') }}"><span class="glyphicon glyphicon-info-sign"></span> Administrer</a></li>
+      {% endif %}
+      </ul>
       <!-- search  -->
 
 <!-- <form class="navbar-form navbar-left" role="search">

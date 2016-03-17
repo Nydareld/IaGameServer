@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
 	password = db.Column(db.String(64))
 	score= db.Column(db.Integer)
 	
+	
 	def get_id(self):
 		return self.pseudo
 	
