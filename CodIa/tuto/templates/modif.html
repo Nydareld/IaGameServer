@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='MesIA.css') }}">
+{% endblock %}
+{% block content %}
+
+{% block main %}
+<h2>{{ file }}</h2>
+<textarea id="area" class="{{fic}}" rows="4" cols="50">
+{{fic}}
+</textarea> </p>
+
+jufgjiyfgvbtugfvbut
+{% endblock %}
+{% endblock %}
+
+{% block script %}
+	{{super()}}
+
+{% endblock %}

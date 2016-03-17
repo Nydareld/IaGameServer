@@ -73,10 +73,22 @@ def upload_file():
 
 @app.route("/suprIa/<string:filename>")
 def suprIa(filename):
-	os.remove(app.config['UPLOAD_FOLDER']+filename)
-	removeIa(filename)
-	db.session.commit()
-	return redirect(url_for('MesIA'))
+		os.remove(app.config['UPLOAD_FOLDER']+filename)
+		removeIa(filename)
+		db.session.commit()
+		return redirect(url_for('MesIA'))
+
+
+@app.route("/modifIa/<string:filename>")
+def modifIa(filename):
+	fichier = (open("CodIa/tuto/IA/"+filename, "r")).read()
+	return  render_template(
+			"modif.html",
+			title="Modif",
+			tab="MesIA",
+			file=filename,
+			fic=fichier
+			)
 #quand nous cliquons sur une image spécifique
 
 # @app.route("/one_music/<int:id>/")
