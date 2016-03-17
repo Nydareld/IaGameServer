@@ -91,6 +91,15 @@ def modifIa(filename):
 			file=filename,
 			fic=fichier
 			)
+
+@app.route('/save_file/<string:filename>', methods=['POST'])
+def save_file(filename):
+	contenu = request.form['textarea']
+	newFichier = open("CodIa/tuto/IA/"+filename,"w")
+	newFichier.write(contenu)
+	newFichier.close()
+	return redirect(url_for("MesIA"))
+
 #quand nous cliquons sur une image spécifique
 
 # @app.route("/one_music/<int:id>/")
