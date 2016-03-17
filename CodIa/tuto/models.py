@@ -18,6 +18,9 @@ class User(db.Model, UserMixin):
 		return "%s - %s - %s" % (self.pseudo, self.username, self.usermail)
 
 
+def getUser(pseudo):
+	return db.session.query(User).filter(User.pseudo==pseudo).first()
+
 @login_manager.user_loader
 def load_user(username):
 	return User.query.get(username)

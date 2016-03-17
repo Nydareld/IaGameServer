@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+
+{% block styles %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='apropos.css') }}">
+	{% endblock %}
+{% block main %}
+
+<div class="container" >
+  <h2 class="page-header">Mon profil</h2>
+  <div class="row">
+    
+    <!-- edit form column -->
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+        <i class="fa fa-coffee"></i>
+      <form class="form-horizontal" role="form" action="{{ url_for('MyProfil', pseudo=current_user.pseudo) }}" method="POST">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Prenom :</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="{{ current_user.usersurname }}" type="text" name="usersurname">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Nom :</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="{{ current_user.username }}" type="text" name="username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Email :</label>
+          <div class="col-lg-8">
+            <input class="form-control" value="{{ current_user.usermail }}" type="text" name="useremail">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-md-3 control-label">Pseudo:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="{{ current_user.pseudo }}" type="text" name="pseudo">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">Password:</label>
+          <div class="col-md-8">
+            <input class="form-control" value="11111122333" type="password" name="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Save Changes" type="submit">
+            <span></span>
+ 
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<p>score:{{ current_user.score }}</p>
+{% endblock %}

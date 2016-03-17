@@ -9,7 +9,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
 from wtforms import PasswordField
-from .models import User, Ia, removeIa
+from .models import User, Ia, removeIa, getUser
 from hashlib import sha256
 import os
 import requests
@@ -46,7 +46,23 @@ def classement():
 @app.route("/reglement")
 def reglement():
 	return render_template("reglement.html",tab="Règles")
-						####### musiques #######
+
+@app.route("/myprofil/", methods=("GET","POST",))
+def MyProfil(pseudo="joseph"):
+	if request.method=="GET":
+		return render_template("profile.html", tab="MyProfil")
+	else:
+		u=getUser(request.form["pseudo"])
+		u.pseudo=request.form["pseudo"]
+		u.username=request.form["username"]
+		u.usersurname=request.form["usersurname"]
+		u.useremail=request.form["useremail"]
+		m = sha256()
+		m.update((request.form["password"]).encode())
+		u.password = m.hexdigest()
+		db.session.add(u)
+		db.session.commit()
+	return render_template("profile.html", tab="MyProfil")
 
 @app.route("/MesIA")
 def MesIA():
@@ -99,6 +115,7 @@ def save_file(filename):
 	newFichier.write(contenu)
 	newFichier.close()
 	return redirect(url_for("MesIA"))
+
 
 #quand nous cliquons sur une image spécifique
 
@@ -341,39 +358,39 @@ def apropos():
 
 
 
-@app.route("/ajouterFavoris/<int:idM>+<string:idU>")
-def ajouterFavoris(idM,idU):
-	f=Favoris(id_musique=None, pseudo=None)
-	# f.id=Favoris.query.count()+1
-	# id = Favoris.query.count()+1
-	# f.id=id
-	f.id_musique=idM
-	f.pseudo=idU
-	add_favoris(f)
-	db.session.commit()
-	return redirect(url_for('one_music', id=idM))
+# @app.route("/ajouterFavoris/<int:idM>+<string:idU>")
+# def ajouterFavoris(idM,idU):
+# 	f=Favoris(id_musique=None, pseudo=None)
+# 	# f.id=Favoris.query.count()+1
+# 	# id = Favoris.query.count()+1
+# 	# f.id=id
+# 	f.id_musique=idM
+# 	f.pseudo=idU
+# 	add_favoris(f)
+# 	db.session.commit()
+# 	return redirect(url_for('one_music', id=idM))
 
-@app.route("/Musique")
-def MesMusiques():
-	return render_template("musique.html",musiques=getMusique)
+# @app.route("/Musique")
+# def MesMusiques():
+# 	return render_template("musique.html",musiques=getMusique)
 
-@app.route("/SuprimerFavoris/<int:idM>+<string:idU>")
-def suprFav(idM,idU):
-	removeFavoris(idM,idU)
-	db.session.commit()
-	return redirect(url_for('one_music', id=idM))
+# @app.route("/SuprimerFavoris/<int:idM>+<string:idU>")
+# def suprFav(idM,idU):
+# 	removeFavoris(idM,idU)
+# 	db.session.commit()
+# 	return redirect(url_for('one_music', id=idM))
 
-				####Musique####
+# 				####Musique####
 
-@app.route("/suprimerMusique/<int:idM>")
-def suprMusique(idM):
-	removeMusique(idM)
-	db.session.commit()
-	return redirect(url_for('home'))
+# @app.route("/suprimerMusique/<int:idM>")
+# def suprMusique(idM):
+# 	removeMusique(idM)
+# 	db.session.commit()
+# 	return redirect(url_for('home'))
 
-class MusiqueForm(Form) :
-	mail = StringField('ADRESSE MAIL', validators=[DataRequired()])
-	pseudo = StringField('PSEUDO', validators=[DataRequired()])
-	name = StringField('NOM', validators=[DataRequired()])
-	prenom = StringField('PRENOM', validators=[DataRequired()])
-	mdp = PasswordField('MOT DE PASSE', validators=[DataRequired()])
+# class MusiqueForm(Form) :
+# 	mail = StringField('ADRESSE MAIL', validators=[DataRequired()])
+# 	pseudo = StringField('PSEUDO', validators=[DataRequired()])
+# 	name = StringField('NOM', validators=[DataRequired()])
+# 	prenom = StringField('PRENOM', validators=[DataRequired()])
+# 	mdp = PasswordField('MOT DE PASSE', validators=[DataRequired()])
