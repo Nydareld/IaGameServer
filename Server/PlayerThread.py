@@ -53,7 +53,7 @@ class PlayerThread(Thread):
                 print("\033[91m Le Joueur "+self.joueur.username +" à perdu \033[0m")
                 user = User.query.filter_by(pseudo=self.joueur.username).first()
                 if user is not None:
-                    print("\033[91m Zbra \033[0m")
+                    # print("\033[91m Zbra \033[0m")
 
                     user.score += self.joueur.score
                     db.session.commit()
