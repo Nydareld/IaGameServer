@@ -5,7 +5,7 @@
 </br>
 </br>
 <div class="container">
-	<h1> S'inscrire, c'est facile </h1>
+	<h1> S'inscrire, c'est facile :</h1>
 	{% if message %}
 		<div class="alert alert-danger" role="alert"> {{ message }} </div>
 	{% endif %}
@@ -18,7 +18,7 @@
 			{{ form.mail.label }} {{ form.mail(size=50, class_="form-control") }}
 			{{ form.mdp.label }} {{ form.mdp(size=50, class_="form-control") }}
 		</div>
-		
+
 		<input class="btn btn-lg btn-primary" type="submit" value="M'inscrire">
 	</form>
 </div>
