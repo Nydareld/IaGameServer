@@ -4,7 +4,7 @@ from CodIa.tuto.models import User
 from CodIa.tuto.app import db
 import threading
 import time
-
+import random
 
 class PlayerThread(Thread):
 
@@ -71,6 +71,7 @@ class PlayerThread(Thread):
     def calculePos(self):
         # print("\033[91m caca \033[0m")
         # print(str(self.joueur.spheres[0].normeVitesse()) +"    "+ str(self.joueur.spheres[0].normeVitesseMax()))
+        res=0
         for sphere in  self.joueur.spheres:
             sphere.vectVitesse = sphere.vitesseNextTick()
             if sphere.normeVitesse() > sphere.normeVitesseMax():
@@ -81,6 +82,18 @@ class PlayerThread(Thread):
             #     print("\033[92m non caca \033[0m")
             sphere.vectPos = sphere.posNextTick()
 
+            rand = random.randint(1,300)
+            if sphere.taille > 50000 and rand==1:
+                sphere.split(self.joueur)
+                somme = 0
+
+                #print("=======================================================")
+
+                for joueur in self.GameThread.game.joueurs.values():
+                    somme += joueur.poidTotal
+                #print("somme2"+str(somme))
+            #print("taille sphere max: "+str((sphere.taille)))
+            #pass
         self.joueur.updateScore()
 
     def join(self):

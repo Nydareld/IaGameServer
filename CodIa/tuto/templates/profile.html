@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 {% extends "base.html" %}
@@ -18,20 +20,20 @@
         <i class="fa fa-coffee"></i>
       <form class="form-horizontal" role="form" action="{{ url_for('MyProfil', pseudo=current_user.pseudo) }}" method="POST">
         <div class="form-group">
-          <label class="col-lg-3 control-label">Prenom :</label>
-          <div class="col-lg-8">
+          <label class="col-md-3 control-label">Prenom :</label>
+          <div class="col-md-8">
             <input class="form-control" value="{{ current_user.usersurname }}" type="text" name="usersurname">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Nom :</label>
-          <div class="col-lg-8">
+          <label class="col-md-3 control-label">Nom :</label>
+          <div class="col-md-8">
             <input class="form-control" value="{{ current_user.username }}" type="text" name="username">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Email :</label>
-          <div class="col-lg-8">
+          <label class="col-md-3 control-label">Email :</label>
+          <div class="col-md-8">
             <input class="form-control" value="{{ current_user.usermail }}" type="text" name="useremail">
           </div>
         </div>
