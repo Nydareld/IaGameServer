@@ -30,7 +30,7 @@
 				 <td>{{x.name}}</td>
 				 <td><a href="{{ url_for('addPlayer', username = current_user.pseudo, ia = x.name)}}"><button type="button" class="glyphicon glyphicon-ok-sign"></button></a></td>
 				 <td><a href="{{ url_for('modifIa', filename=x.name) }}"><button type="button" class="glyphicon glyphicon-pencil"></button></a></td>
-				 <td><a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
+				 <td><a href="{{ url_for('suprIa', filename=x.name, admin=current_user.admin) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
 		 	</tr>
         {% endif %}
       {% endfor %}

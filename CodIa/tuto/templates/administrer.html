@@ -48,7 +48,7 @@
 				 <td>{{x.name}}</td>
 				 <td>{{ x.user_pseudo }}</td>
 				 <td><a href="{{ url_for('modifIa', filename=x.name) }}"><button type="button" class="glyphicon glyphicon-pencil"></button></a></td>
-				 <td><a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
+				 <td><a href="{{ url_for('suprIa', filename=x.name, admin=current_user.admin) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
 		 	</tr>
         {% endif %}
       {% endfor %}

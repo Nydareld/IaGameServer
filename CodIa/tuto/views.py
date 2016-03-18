@@ -43,6 +43,8 @@ def classement():
 			tab="Classement"
 			)
 
+
+
 @app.route("/reglement")
 def reglement():
 	return render_template("reglement.html",tab="Règles")
@@ -89,12 +91,20 @@ def upload_file():
     return render_template("addIA.html",tab="MesIA")
 
 
-@app.route("/suprIa/<string:filename>")
-def suprIa(filename):
+@app.route("/suprIa/<string:filename>/<int:admin>")
+def suprIa(filename,admin):
 		os.remove(app.config['UPLOAD_FOLDER']+filename)
 		removeIa(filename)
 		db.session.commit()
-		return redirect(url_for('MesIA'))
+		if not admin:
+			return redirect(url_for("MesIA"))
+		else:
+			return  render_template(
+					"administrer.html",
+					title="Administrer",
+					tab="administrer",
+					users=User.query.all(),
+					ia=Ia.query.all())
 
 
 @app.route("/administrer")

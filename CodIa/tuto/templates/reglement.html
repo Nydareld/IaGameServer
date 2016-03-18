@@ -4,6 +4,7 @@
 
 {% block styles %}
 	{{ super() }}
+
 	<link rel="stylesheet" href="{{ url_for('static', filename='apropos.css') }}">
 	{% endblock %}
 
@@ -11,12 +12,51 @@
 
 {% block main %}
 
-<h2>Réglement</h2>
 <div class="aprop">
-  <p>Pour ce jeu les règles sont très simples:</p>
+	<h1 class="bienvenu">Bienvenu dans CodIa !</h1>
+	<h4> <a href="#presentation">Presentation</a> | <a href="#inscription">Inscription</a> | <a href="#connexion">Connexion</a> </h4>
+  <div id="presentation"><h3 class="presentation">Présentation de l’application:</h3></div>
 </br>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu quam congue, vehicula justo condimentum, elementum massa. Nam vel eleifend sapien, at condimentum massa. Aliquam elementum tortor lacus, id aliquet dui tempor ut. Sed magna velit, pulvinar ac rutrum at, fringilla nec nunc. Praesent molestie, ante non mollis venenatis, nisi neque convallis elit, dapibus elementum augue eros at ipsum. Nunc ut metus vitae ex cursus semper. Nam sagittis posuere libero nec imperdiet. Aliquam erat volutpat. Mauris iaculis posuere aliquam. Nunc gravida hendrerit risus, id eleifend eros laoreet nec. Duis ut justo ultricies, lacinia arcu suscipit, semper ipsum. Nullam quis condimentum ante. Nunc venenatis magna velit, nec dictum magna luctus vel.</p>
+<p>Cod
+IA est un logiciel visant à permettre à des étudiants (entre autres) d’apprendre à programmer ou
+d’améliorer leurs compé
+tences de programmation de façon ludique
+, puisqu’il s’agit de programmer des
+intelligences artificielles qui pourront en affronter d’autres lors de matchs ou de tournois.
+Le jeu qui est pour l’instant avec le site est un jeu similaire à agar.io. Le but est
+de faire survivre une
+boule
+dans un environnement multijoueur
+en «
+mangeant
+» de plus petites boules et en évitant de se faire
+manger par de plus grosses. On peut manger les boules des autres joueurs ainsi que des boules «
+PNJ
+»
+qui sont générées régulièr
+ement par le serveur, et qui sont d’une taille inférieure à la taille minimale des
+boules des joueurs</p>
 
+<div id="inscription"><h3>Inscription:</h3></div>
+<p>Pour s’inscrire dans l’application, il faut renseigner les plages demandées (le
+pseudo
+avec  lequel  on
+désire s’inscrire sur l’application,  son
+prénom
+et son
+nom
+, l’
+adresse mail
+que l’on souhaite utiliser pour
+l’application et un
+mot  de  passe
+qui  servira  pour  se  connecter.  Il  faut  ensuite  cliquer  sur  le  bouton
+M’inscrire</p>
+<img src="../static/images/img1" style="width:720px";>
+
+<div id="connexion"><h3>Connexion:</h3></div>
+<p>
+	Pour se connecter à l’application, il faut déjà posséder un compte. Si ce n’est pas le cas, il est possible de commencer une inscription via le bouton inscription. La procédure d’inscription est décrite dans la rubrique « S’inscrire ». Pour s’authentifier dans l’application, il faut remplir </p>
 
 </div>
 {% endblock %}
