@@ -127,14 +127,21 @@ def modifIa(filename):
 			fic=fichier
 			)
 
-@app.route('/save_file/<string:filename>', methods=['POST'])
-def save_file(filename):
+@app.route('/save_file/<string:filename>/<int:admin>', methods=['POST'])
+def save_file(filename,admin):
 	contenu = request.form['textarea']
 	newFichier = open("CodIa/tuto/IA/"+filename,"w")
 	newFichier.write(contenu)
 	newFichier.close()
-	return redirect(url_for("MesIA"))
-
+	if not admin:
+		return redirect(url_for("MesIA"))
+	else:
+		return  render_template(
+				"administrer.html",
+				title="Administrer",
+				tab="administrer",
+				users=User.query.all(),
+				ia=Ia.query.all())
 
 
 #quand nous cliquons sur une image spécifique

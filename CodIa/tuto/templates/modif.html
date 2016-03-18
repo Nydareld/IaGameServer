@@ -8,7 +8,7 @@
 
 {% block main %}
 <h2>Modification de l'IA : {{ file }}</h2>
-<form role="form" method="POST" action="{{ url_for('save_file',filename= file ) }}">
+<form role="form" method="POST" action="{{ url_for('save_file',filename= file ,admin=current_user.admin) }}">
 	<textarea name="textarea" id="area" class="{{fic}}" rows="20" cols="132">
 	{{fic}}
 	</textarea>

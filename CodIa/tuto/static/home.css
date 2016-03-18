@@ -32,6 +32,9 @@ h3{
   text-align: center;
   margin-top: 20px;
 }
+.list-admin{
+  list-style-type: none;
+}
 
 .btn-primary {
     background-color: #FF8C00;
