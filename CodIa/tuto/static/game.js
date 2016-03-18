@@ -122,7 +122,7 @@ function init() {
                 });
 
                 sorted.sort(function(first, second) {
-                    return second[1] - first[1];
+                    return second[1][0] - first[1][0];
                 });
 
                 $.each(sorted, function(key, val){
@@ -133,8 +133,9 @@ function init() {
                     toAdd +="<div class=\"player\">"+
                         "<div class=\"col-md-1 playerScoresItem\">"+key+"</div>"+
                         "<div class=\"col-md-1 playerScoresItem\" style=\"background-color:"+colors[val[0]]+";\"></div>"+
-                        "<div class=\"col-md-5 playerScoresItem\">"+val[0]+"</div>"+
-                        "<div class=\"col-md-4 playerScoresItem\">"+val[1]+"</div>"+
+                        "<div class=\"col-md-4 playerScoresItem\">"+val[0]+"</div>"+
+                        "<div class=\"col-md-3 playerScoresItem\">"+val[1][0]+"</div>"+
+                        "<div class=\"col-md-3 playerScoresItem\">"+val[1][1]+"</div>"+
                         "</div>";
 
                  });
