@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 
 {% extends "base.html" %}
@@ -8,9 +10,10 @@
 	{% endblock %}
 {% block main %}
 
-<div class="container" >
   <h2 class="page-header">Mon profil</h2>
-  <div class="row">
+<article>
+	<section>
+<div class="container" >
 
     <!-- edit form column -->
     <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
@@ -36,13 +39,13 @@
         </div>
 
         <div class="form-group">
-          <label class="col-md-3 control-label">Pseudo:</label>
+          <label class="col-md-3 control-label">Pseudo :</label>
           <div class="col-md-8">
             <input class="form-control" value="{{ current_user.pseudo }}" type="text" name="pseudo">
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Password:</label>
+          <label class="col-md-3 control-label">Password :</label>
           <div class="col-md-8">
             <input class="form-control" value="11111122333" type="password" name="password">
           </div>
@@ -50,14 +53,16 @@
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input class="btn btn-primary" value="Save Changes" type="submit">
+            <input class="btn btn-primary" value="Sauvegarder les changements" type="submit">
             <span></span>
 
           </div>
         </div>
       </form>
-    </div>
   </div>
+</section>
+	<aside>
+		<p>Score : {{ current_user.score }}</p>
+	</aside>
 </div>
-<p>score:{{ current_user.score }}</p>
 {% endblock %}
