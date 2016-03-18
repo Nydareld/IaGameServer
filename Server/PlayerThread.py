@@ -55,11 +55,16 @@ class PlayerThread(Thread):
     def calculePos(self):
         # print("\033[91m caca \033[0m")
         # print(str(self.joueur.spheres[0].normeVitesse()) +"    "+ str(self.joueur.spheres[0].normeVitesseMax()))
+        res=0
         for sphere in  self.joueur.spheres:
             sphere.vectVitesse = sphere.vitesseNextTick()
             # if sphere.normeVitesse() > sphere.normeVitesseMax():
                 # print("\033[91m caca \033[0m")
             sphere.vectPos = sphere.posNextTick()
+            if sphere.taille > 2000000:
+                sphere.split(self.joueur)
+            #print("taille sphere max: "+str((sphere.taille)))
+            #pass
         pass
 
     def join(self):
