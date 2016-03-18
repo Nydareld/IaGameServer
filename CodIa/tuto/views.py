@@ -103,7 +103,8 @@ def administrer():
 			"administrer.html",
 			title="Administrer",
 			tab="administrer",
-			users=User.query.all())
+			users=User.query.all(),
+			ia=Ia.query.all())
 
 @app.route("/suprUser/<string:pseudo>")
 def suprUser(pseudo):
@@ -114,7 +115,7 @@ def suprUser(pseudo):
 			title="Administrer",
 			tab="administrer",
 			users=User.query.all())
-	
+
 @app.route("/modifIa/<string:filename>")
 def modifIa(filename):
 	fichier = (open("CodIa/tuto/IA/"+filename, "r")).read()

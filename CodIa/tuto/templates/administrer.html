@@ -11,6 +11,7 @@
 		<li>
 			<div class="mesia">
 			<div class=container>
+				<h2>Utilisateurs</h2>
 				<table class="table table-striped">
 				    <thead>
 				        <tr>
@@ -22,11 +23,35 @@
 				    <tbody>
        {% for x in users %}       
 			 <tr>
+			 	{% if current_user.pseudo!=x.pseudo%}
 				 <td>{{x.pseudo}}</td>
 				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></td>
 				 <td><a href="{{ url_for('suprUser', pseudo=x.pseudo) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
 		 	</tr>
-      
+      {% endif %}
+      {% endfor %}
+					</tbody>
+				</table>
+			<div class="mesia">
+			<div class=container>
+				<table class="table table-striped">
+				    <thead>
+				        <tr>
+				            <th>Nom de l'IA</th>
+				            <th>Modifier</th>
+				            <th>Supprimer</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+
+       {% for x in ia %}
+       {% if x.user_pseudo==current_user.pseudo %}
+			 <tr>
+				 <td>{{x.name}}</td>
+				 <td><a href="{{ url_for('modifIa', filename=x.name) }}"><button type="button" class="glyphicon glyphicon-pencil"></button></a></td>
+				 <td><a href="{{ url_for('suprIa', filename=x.name) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
+		 	</tr>
+        {% endif %}
       {% endfor %}
 					</tbody>
 				</table>
