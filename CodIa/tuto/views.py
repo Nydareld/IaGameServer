@@ -9,7 +9,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
 from wtforms import PasswordField
-from .models import User, Ia, removeIa, getUser
+from .models import User, Ia, removeIa, getUser, removeUser
 from hashlib import sha256
 import os
 import requests
@@ -96,6 +96,25 @@ def suprIa(filename):
 		db.session.commit()
 		return redirect(url_for('MesIA'))
 
+
+@app.route("/administrer")
+def administrer():
+	return  render_template(
+			"administrer.html",
+			title="Administrer",
+			tab="administrer",
+			users=User.query.all(),
+			ia=Ia.query.all())
+
+@app.route("/suprUser/<string:pseudo>")
+def suprUser(pseudo):
+	removeUser(pseudo)
+	db.session.commit()
+	return  render_template(
+			"administrer.html",
+			title="Administrer",
+			tab="administrer",
+			users=User.query.all())
 
 @app.route("/modifIa/<string:filename>")
 def modifIa(filename):

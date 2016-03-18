@@ -88,9 +88,21 @@ def newuser(usermail, username, usersurname, password):
 	from hashlib import sha256
 	m = sha256()
 	m.update(password.encode())
-	u = User(username=username, usersurname=usersurname, usermail=usermail, password=m.hexdigest())
+	u = User(username=username, usersurname=usersurname, usermail=usermail, password=m.hexdigest(), score=0)
 	db.session.add(u)
 	db.session.commit()
+
+
+@manager.command
+def newadmin(pseudo, usermail, username, usersurname, password):
+	from .models import User
+	from hashlib import sha256
+	m = sha256()
+	m.update(password.encode())
+	u = User(pseudo=pseudo, username=username, usersurname=usersurname, usermail=usermail, password=m.hexdigest(), score=0, admin=True)
+	db.session.add(u)
+	db.session.commit()
+
 
 @manager.command
 def runGameServer(port=5555):
