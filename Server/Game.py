@@ -152,6 +152,42 @@ class Sphere:
         self.vectPos = [posX,posY]
         #self.t=0
 
+    def split(self,player):
+        if len(player.spheres)<6:
+            print(self.taille)
+            taillewait = int(self.taille/2)
+            print(taillewait)
+
+            vecVIt1wait = self.vectVitesse
+            vecVIt2await = self.vectVitesse[0]*3
+            vecVIt2bwait = self.vectVitesse[1]*3
+
+            vectAccelwait = self.vectAcceleration
+
+
+            vectPoswait = self.vectPos
+
+            player.spheres.remove(self)
+
+            sphere1 = Sphere(vectPoswait[0],vectPoswait[1],taillewait)
+            sphere1.vectVitesse = vecVIt1wait
+            sphere1.vectAcceleration = vectAccelwait
+
+            sphere2 = Sphere(vectPoswait[0],vectPoswait[1],taillewait)
+            sphere2.vectVitesse[0] = vecVIt2await
+            sphere2.vectVitesse[1] = vecVIt2bwait
+            sphere2.vectAcceleration = vectAccelwait
+
+            player.spheres.append(sphere1)
+            player.spheres.append(sphere2)
+
+            while (sphere2.vectVitesse[0]>sphere1.vectVitesse[0] and sphere2.vectVitesse[1]>sphere1.vectVitesse[1]):
+                sphere2.vectVitesse[0] -=0.5
+                sphere2.vectVitesse[1] -=0.5
+
+
+
+
     def getInertie(self):
         return 1/2*taille*vitesse**2
 
@@ -208,7 +244,6 @@ class Sphere:
     def rayon(self):
         return math.sqrt(self.taille)
 
-
     def distanceTo(self,sphere2):
         #print(str(math.sqrt((sphere2.vectPos[0]-self.vectPos[0])**2  + (sphere2.vectPos[1]-self.vectPos[1])**2 )))
         return math.sqrt((sphere2.vectPos[0]-self.vectPos[0])**2  + (sphere2.vectPos[1]-self.vectPos[1])**2 )
@@ -223,6 +258,7 @@ class Sphere:
     def join(self,sphere2,player2):
         if self.canJoin(sphere2):
             #print("On a mangé, D="+str(self.distanceTo(sphere2))+" ,R="+str(self.rayon()))
-            self.taille += (sphere2.taille)*1.5
+            if (self.taille<50000000):
+                self.taille += (sphere2.taille)*1.5
             return [player2,sphere2]
         return None
