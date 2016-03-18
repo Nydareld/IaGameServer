@@ -15,7 +15,7 @@
 				    <thead>
 				        <tr>
 				            <th>Nom de l'utilisateur</th>
-				            <th>Modifier</th>
+				            <th>Afficher les Ia</th>
 				            <th>Supprimer</th>
 				        </tr>
 				    </thead>
@@ -24,10 +24,11 @@
 			 <tr>
 				 <td>{{x.pseudo}}</td>
 				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></td>
-				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
+				 <td><a href="{{ url_for('suprUser', pseudo=x.pseudo) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
 		 	</tr>
-        {% endif %}
+      
       {% endfor %}
 					</tbody>
 				</table>
 			</div>
+			{% endblock %}

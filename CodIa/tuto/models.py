@@ -36,3 +36,9 @@ def removeIa(filename):
 	m=s.query(Ia).filter(Ia.name==filename).all()
 	for c in m:
    		db.session.delete(c)
+
+def removeUser(pseudo):
+	s=db.session()
+	m=s.query(User).filter(User.pseudo==pseudo).all()
+	for c in m:
+   		db.session.delete(c)
