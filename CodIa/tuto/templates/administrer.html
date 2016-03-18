@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block styles %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='apropos.css') }}">
+	{% endblock %}
+{% block main %}
+
+	<ul>
+		
+		<li>
+			<div class="mesia">
+			<div class=container>
+				<table class="table table-striped">
+				    <thead>
+				        <tr>
+				            <th>Nom de l'utilisateur</th>
+				            <th>Modifier</th>
+				            <th>Supprimer</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+       {% for x in users %}       
+			 <tr>
+				 <td>{{x.pseudo}}</td>
+				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></td>
+				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
+		 	</tr>
+        {% endif %}
+      {% endfor %}
+					</tbody>
+				</table>
+			</div>

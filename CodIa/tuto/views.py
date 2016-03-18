@@ -94,6 +94,12 @@ def suprIa(filename):
 	db.session.commit()
 	return redirect(url_for('MesIA'))
 
+@app.route("/administrer")
+def administrer():
+	return  render_template(
+			"administrer.html",
+			title="Administrer",
+			users=User.query.all())
 
 
 #quand nous cliquons sur une image spécifique

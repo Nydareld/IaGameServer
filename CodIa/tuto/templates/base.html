@@ -41,7 +41,7 @@
         <li {% if tab == "Apropos" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('apropos') }}"><span class="glyphicon glyphicon-info-sign"></span> A propos</a></li>
       </ul>
       {% if current_user.admin %}
-      <li {% if tab == "Apropos" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('apropos') }}"><span class="glyphicon glyphicon-info-sign"></span> Administrer</a></li>
+      <li {% if tab == "Apropos" %} id="actif" class="active" {% endif %} ><a href="{{ url_for('administrer') }}"><span class="glyphicon glyphicon-info-sign"></span> Administrer</a></li>
       {% endif %}
       </ul>
       <!-- search  -->

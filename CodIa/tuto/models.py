@@ -10,7 +10,7 @@ class User(db.Model, UserMixin):
 	usersurname = db.Column(db.String(50))
 	password = db.Column(db.String(64))
 	score= db.Column(db.Integer)
-	
+	admin = db.Column(db.Boolean, nullable=False, default=False)
 	
 	def get_id(self):
 		return self.pseudo
