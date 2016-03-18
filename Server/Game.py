@@ -46,8 +46,15 @@ class Game:
                     sphere.vectPos,
                     sphere.taille
                     ])
+            res[joueur.username]
         return json.dumps(res,default=lambda o: o.__dict__)
 
+    def scoresJson(self):
+        res = dict()
+        for joueur in self.joueurs.values():
+            if joueur.username != "PNJ":
+                res[joueur.username] = [joueur.score,joueur.poidTotal]
+        return json.dumps(res,default=lambda o: o.__dict__)
 
 class Player:
     """
@@ -62,6 +69,9 @@ class Player:
         self.username = username
         self.spheres = []
         self.ia = ia
+        self.score = 1
+        self.poidTotal = 1
+        self.end = False
         if username != "PNJ":
             self.spheres.append(
                 Sphere(
@@ -114,6 +124,16 @@ class Player:
             #         random.randint(1, gamesize),
             #         taille=1000))
 
+
+    def updateScore(self):
+        sumtaille = 0
+        for sphere in self.spheres:
+            sumtaille += sphere.taille
+        if sumtaille > self.score:
+            self.score = sumtaille
+        self.poidTotal = sumtaille
+
+
 class Sphere:
     """
     Classe qui définit une Sphere
@@ -130,43 +150,60 @@ class Sphere:
         self.vectVitesse = [0,0]
         self.vectAcceleration = [0,0]
         self.vectPos = [posX,posY]
-        self.t=0
+        #self.t=0
 
     def getInertie(self):
         return 1/2*taille*vitesse**2
 
     def posNextTick(self):
+
+        #### Positions accélérées selon le vecteur accélération
         x=self.vectPos[0]+self.vectVitesse[0]+1/2*self.vectAcceleration[0]**2
         y=self.vectPos[1]+self.vectVitesse[1]+1/2*self.vectAcceleration[1]**2
 
+        #### Positions translatées aléatoires
+        # x+= random.randint(-100,100)
+        # y+= random.randint(-100,100)
+
+        #### Positions translaté de facon circulaires
         #x+=50*math.cos(self.t)#La ca tourne(pour les tests)
         #y+=50*math.sin(self.t)
-        x+= random.randint(-100,100)
-        y+= random.randint(-100,100)
+
+        #### Modification aléatoire du vecteur accélération
+        self.vectAcceleration[0]= random.randint(-3,3)
+        self.vectAcceleration[1]= random.randint(-3,3)
         #print("x="+str(int(x))+"y="+str(int(y)))
-        self.t+=1/30
+        #self.t+=1/30
 
         if x > gamesize :
             x=gamesize
+            self.vectVitesse[0]=0
+            self.vectAcceleration[0]=0
         if y > gamesize :
+            self.vectVitesse[1]=0
+            self.vectAcceleration[1]=0
             y=gamesize
 
         if x < 0 :
             x=0
+            self.vectVitesse[0]=0
+            self.vectAcceleration[0]=0
         if y < 0 :
             y=0
+            self.vectVitesse[1]=0
+            self.vectAcceleration[1]=0
         return [int(x),int(y)]
 
     def vitesseNextTick(self):
         vx=self.vectVitesse[0]+self.vectAcceleration[0]
         vy=self.vectVitesse[1]+self.vectAcceleration[1]
-        return [int(vx),int(vy)]
+        return [vx,vy]
 
     def normeVitesse(self):
         return math.sqrt(self.vectVitesse[0]**2 + self.vectVitesse[1]**2 )
 
     def normeVitesseMax(self):
-        return ((1/self.taille)*1000)+10
+        return ((1/self.taille)*10000000)+10
 
     def rayon(self):
         return math.sqrt(self.taille)
@@ -185,7 +222,7 @@ class Sphere:
 
     def join(self,sphere2,player2):
         if self.canJoin(sphere2):
-            print("On a mangé, D="+str(self.distanceTo(sphere2))+" ,R="+str(self.rayon()))
+            #print("On a mangé, D="+str(self.distanceTo(sphere2))+" ,R="+str(self.rayon()))
             self.taille += (sphere2.taille)*1.5
             return [player2,sphere2]
         return None

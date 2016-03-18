@@ -42,6 +42,11 @@ h2{
   background-color: #ff8000;
   box-shadow:2px 2px 1px #888888;
 }
+
+.btn-save{
+  text-align: center;
+}
+
 div.sample{
 
 	text-align: : center;
@@ -127,5 +132,42 @@ to { transform: rotateZ(.5deg) }
 
 #gameCanvas{
     border: 3px #999999 solid;
-    border-radius: 15px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+#gameDiv{
+    display: inline-block;
+}
+
+#scoreboard{
+    padding: 15px;
+    position: fixed;
+    display: inline-block;
+    border: 3px #999999 solid;
+    border-radius: 5px;
+    width: 500px;
+}
+.playerScoresItem{
+    height: 20px;
+}
+
+#rainbow {
+    background: red; /* not working, let's see some red */
+    background: -moz-linear-gradient( top ,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 255, 0, 1) 15%,
+        rgba(0, 255, 0, 1) 30%,
+        rgba(0, 255, 255, 1) 50%,
+        rgba(0, 0, 255, 1) 65%,
+        rgba(255, 0, 255, 1) 80%,
+        rgba(255, 0, 0, 1) 100%);
+    background: -webkit-gradient(linear,  left top,  left bottom,
+        color-stop(0%, rgba(255, 0, 0, 1)),
+        color-stop(15%, rgba(255, 255, 0, 1)),
+        color-stop(30%, rgba(0, 255, 0, 1)),
+        color-stop(50%, rgba(0, 255, 255, 1)),
+        color-stop(65%, rgba(0, 0, 255, 1)),
+        color-stop(80%, rgba(255, 0, 255, 1)),
+        color-stop(100%, rgba(255, 0, 0, 1)));
 }

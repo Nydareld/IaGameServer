@@ -16,6 +16,8 @@ import requests
 import Server
 import time
 import random
+from threading import Thread
+
 
 # from .models import Musique,Singer
 
@@ -44,7 +46,7 @@ def classement():
 @app.route("/reglement")
 def reglement():
 	return render_template("reglement.html",tab="Règles")
-						
+
 @app.route("/myprofil/", methods=("GET","POST",))
 def MyProfil(pseudo="joseph"):
 	if request.method=="GET":
@@ -89,10 +91,11 @@ def upload_file():
 
 @app.route("/suprIa/<string:filename>")
 def suprIa(filename):
-	os.remove(app.config['UPLOAD_FOLDER']+filename)
-	removeIa(filename)
-	db.session.commit()
-	return redirect(url_for('MesIA'))
+		os.remove(app.config['UPLOAD_FOLDER']+filename)
+		removeIa(filename)
+		db.session.commit()
+		return redirect(url_for('MesIA'))
+
 
 @app.route("/administrer")
 def administrer():
@@ -100,6 +103,26 @@ def administrer():
 			"administrer.html",
 			title="Administrer",
 			users=User.query.all())
+
+
+@app.route("/modifIa/<string:filename>")
+def modifIa(filename):
+	fichier = (open("CodIa/tuto/IA/"+filename, "r")).read()
+	return  render_template(
+			"modif.html",
+			title="Modif",
+			tab="MesIA",
+			file=filename,
+			fic=fichier
+			)
+
+@app.route('/save_file/<string:filename>', methods=['POST'])
+def save_file(filename):
+	contenu = request.form['textarea']
+	newFichier = open("CodIa/tuto/IA/"+filename,"w")
+	newFichier.write(contenu)
+	newFichier.close()
+	return redirect(url_for("MesIA"))
 
 
 #quand nous cliquons sur une image spécifique
@@ -309,6 +332,10 @@ def logout():
 def data():
 	return app.gameThread.data
 
+@app.route("/scores")
+def scores():
+	return app.gameThread.scores
+
 @app.route("/addPlayer/<string:username>/<string:ia>")
 def addPlayer(username, ia):
 	print("Nouveau Joueur sur le serveur par defaut, Username= "+username+", IA= "+ia)
@@ -319,11 +346,16 @@ def addPlayer(username, ia):
 
 @app.route("/randTestPlayers")
 def randTestPlayers():
-	for n in range(10):
-		rand = random.random()
-		time.sleep(rand*3)
-		thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
-		thJoueur.start()
+	def createLesJoueurs():
+		joueurs = ["Nico","Clem","Flavie","theo","Marine","aifpe"]
+		for n in joueurs:
+			rand = random.random()
+			time.sleep(rand*3)
+			thJoueur = Server.PlayerThread(app.gameThread,n,"Rand")
+			thJoueur.start()
+
+	th = Thread(target=createLesJoueurs)
+	th.start()
 	return redirect(url_for("home"))
 
 
