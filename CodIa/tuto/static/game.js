@@ -41,7 +41,11 @@ function init() {
     // createjs.Ticker.addEventListener("tick", stage);
 
     var colors = new Array();
+    var toAdd = "";
 
+
+
+    // Fonction d'affichage
     setInterval(function(){
         resize();
 
@@ -76,7 +80,7 @@ function init() {
                     }
                     // console.log(key.concat("=".concat(max)));
                 })
-                console.log(max);
+                // console.log(max);
 
                 d3.selectAll("svg > *").remove();
 
@@ -100,6 +104,50 @@ function init() {
         });
 
      }, 30);
+
+
+     // fonction des scores
+    setInterval(function(){
+        resize();
+
+        $.ajax({
+            type: "GET",
+            url: "/scores",
+            dataType: "json",
+            success: function(json) {
+                var nb =0;
+
+                var sorted = Object.keys(json).map(function(key) {
+                    return [key, json[key]];
+                });
+
+                sorted.sort(function(first, second) {
+                    return second[1][0] - first[1][0];
+                });
+
+                $.each(sorted, function(key, val){
+                    if( colors[val[0]] == null ){
+                        colors[val[0]] = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                    }
+                    // afficher
+                    toAdd +="<div class=\"player\">"+
+                        "<div class=\"col-md-1 playerScoresItem\">"+key+"</div>"+
+                        "<div class=\"col-md-1 playerScoresItem\" style=\"background-color:"+colors[val[0]]+";\"></div>"+
+                        "<div class=\"col-md-4 playerScoresItem\">"+val[0]+"</div>"+
+                        "<div class=\"col-md-3 playerScoresItem\">"+val[1][0]+"</div>"+
+                        "<div class=\"col-md-3 playerScoresItem\">"+val[1][1]+"</div>"+
+                        "</div>";
+
+                 });
+             }
+
+
+         });
+
+         $(".player").remove();
+         $("#playerScores").append(toAdd);
+         toAdd = "";
+     }, 1000);
 
 
     // this will show the info it in firebug console

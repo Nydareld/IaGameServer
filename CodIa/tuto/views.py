@@ -324,6 +324,10 @@ def logout():
 def data():
 	return app.gameThread.data
 
+@app.route("/scores")
+def scores():
+	return app.gameThread.scores
+
 @app.route("/addPlayer/<string:username>/<string:ia>")
 def addPlayer(username, ia):
 	print("Nouveau Joueur sur le serveur par defaut, Username= "+username+", IA= "+ia)
@@ -335,10 +339,11 @@ def addPlayer(username, ia):
 @app.route("/randTestPlayers")
 def randTestPlayers():
 	def createLesJoueurs():
-		for n in range(10):
+		joueurs = ["Nico","Clem","Flavie","theo","Marine","aifpe"]
+		for n in joueurs:
 			rand = random.random()
 			time.sleep(rand*3)
-			thJoueur = Server.PlayerThread(app.gameThread,"P"+str(n),"Rand")
+			thJoueur = Server.PlayerThread(app.gameThread,n,"Rand")
 			thJoueur.start()
 
 	th = Thread(target=createLesJoueurs)

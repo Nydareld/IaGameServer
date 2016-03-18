@@ -46,8 +46,15 @@ class Game:
                     sphere.vectPos,
                     sphere.taille
                     ])
+            res[joueur.username]
         return json.dumps(res,default=lambda o: o.__dict__)
 
+    def scoresJson(self):
+        res = dict()
+        for joueur in self.joueurs.values():
+            if joueur.username != "PNJ":
+                res[joueur.username] = [joueur.score,joueur.poidTotal]
+        return json.dumps(res,default=lambda o: o.__dict__)
 
 class Player:
     """
@@ -62,22 +69,36 @@ class Player:
         self.username = username
         self.spheres = []
         self.ia = ia
+        self.score = 1
+        self.poidTotal = 1
+        self.end = False
         if username != "PNJ":
             self.spheres.append(
                 Sphere(
                     random.randint(1, gamesize),
                     random.randint(1, gamesize),
-                    taille=random.randint(10000,100000)))
+                    taille=random.randint(10000,30000)))
             self.spheres.append(
                 Sphere(
                     random.randint(1, gamesize),
                     random.randint(1, gamesize),
-                    random.randint(10000,100000)))
+                    random.randint(10000,30000)))
             self.spheres.append(
                 Sphere(
                     random.randint(1, gamesize),
                     random.randint(1, gamesize),
-                    random.randint(10000,100000)))
+                    random.randint(10000,30000)))
+
+            self.spheres.append(
+                Sphere(
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
+                    taille=random.randint(10000,30000)))
+            self.spheres.append(
+                Sphere(
+                    random.randint(1, gamesize),
+                    random.randint(1, gamesize),
+                    random.randint(10000,30000)))
             # self.spheres.append(
             #     Sphere(
             #         random.randint(1, gamesize),
@@ -114,6 +135,16 @@ class Player:
             #         random.randint(1, gamesize),
             #         taille=1000))
 
+
+    def updateScore(self):
+        sumtaille = 0
+        for sphere in self.spheres:
+            sumtaille += sphere.taille
+        if sumtaille > self.score:
+            self.score = sumtaille
+        self.poidTotal = sumtaille
+
+
 class Sphere:
     """
     Classe qui définit une Sphere
@@ -133,35 +164,32 @@ class Sphere:
         #self.t=0
 
     def split(self,player):
-        if len(player.spheres)<6 and self.taille < 5000000:
-            taillewait = self.taille/2
+        #print(self.taille)
+        taillewait = int(self.taille/2)
+        #print(taillewait)
 
-            vecVIt1wait = self.vectVitesse
-            vecVIt2await = self.vectVitesse[0]*3
-            vecVIt2bwait = self.vectVitesse[1]*3
+        vecVIt1wait = self.vectVitesse
+        vecVIt2await = self.vectVitesse[0]*2
+        vecVIt2bwait = self.vectVitesse[1]*2
 
-            vectAccelwait = self.vectAcceleration
+        vectAccelwait = self.vectAcceleration
 
 
-            vectPoswait = self.vectPos
+        vectPoswait = self.vectPos
 
-            player.spheres.remove(self)
+        player.spheres.remove(self)
 
-            sphere1 = Sphere(vectPoswait[0],vectPoswait[1],taillewait)
-            sphere1.vectVitesse = vecVIt1wait
-            sphere1.vectAcceleration = vectAccelwait
+        sphere1 = Sphere(vectPoswait[0],vectPoswait[1],taillewait)
+        sphere1.vectVitesse = vecVIt1wait
+        sphere1.vectAcceleration = vectAccelwait
 
-            sphere2 = Sphere(vectPoswait[0],vectPoswait[1],taillewait)
-            sphere2.vectVitesse[0] = vecVIt2await
-            sphere2.vectVitesse[1] = vecVIt2bwait
-            sphere2.vectAcceleration = vectAccelwait
+        sphere2 = Sphere(vectPoswait[0],vectPoswait[1],taillewait)
+        sphere2.vectVitesse[0] = vecVIt2await
+        sphere2.vectVitesse[1] = vecVIt2bwait
+        sphere2.vectAcceleration = vectAccelwait
 
-            player.spheres.append(sphere1)
-            player.spheres.append(sphere2)
-
-            while (sphere2.vectVitesse[0]>sphere1.vectVitesse[0] and sphere2.vectVitesse[1]>sphere1.vectVitesse[1]):
-                sphere2.vectVitesse[0] -=0.5
-                sphere2.vectVitesse[1] -=0.5
+        player.spheres.append(sphere1)
+        player.spheres.append(sphere2)
 
 
 
@@ -217,7 +245,7 @@ class Sphere:
         return math.sqrt(self.vectVitesse[0]**2 + self.vectVitesse[1]**2 )
 
     def normeVitesseMax(self):
-        return ((1/self.taille)*1000)+10
+        return ((1/self.taille)*10000000)+10
 
     def rayon(self):
         return math.sqrt(self.taille)
@@ -236,7 +264,6 @@ class Sphere:
     def join(self,sphere2,player2):
         if self.canJoin(sphere2):
             #print("On a mangé, D="+str(self.distanceTo(sphere2))+" ,R="+str(self.rayon()))
-            if (self.taille<50000000):
-                self.taille += (sphere2.taille)*1.5
+            self.taille += sphere2.taille
             return [player2,sphere2]
         return None
