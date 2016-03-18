@@ -16,7 +16,6 @@
 				    <thead>
 				        <tr>
 				            <th>Nom de l'utilisateur</th>
-				            <th>Afficher les Ia</th>
 				            <th>Supprimer</th>
 				        </tr>
 				    </thead>
@@ -25,7 +24,6 @@
 			 <tr>
 			 	{% if current_user.pseudo!=x.pseudo%}
 				 <td>{{x.pseudo}}</td>
-				 <td><a href="#" ><button type="button" class="glyphicon glyphicon-pencil"></a></td>
 				 <td><a href="{{ url_for('suprUser', pseudo=x.pseudo) }}" ><button type="button" class="glyphicon glyphicon-trash"></button></a></td>
 		 	</tr>
       {% endif %}
