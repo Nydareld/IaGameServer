@@ -117,6 +117,7 @@ def save_file(filename):
 	return redirect(url_for("MesIA"))
 
 
+
 #quand nous cliquons sur une image spécifique
 
 # @app.route("/one_music/<int:id>/")
