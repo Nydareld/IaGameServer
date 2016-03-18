@@ -46,8 +46,15 @@ class Game:
                     sphere.vectPos,
                     sphere.taille
                     ])
+            res[joueur.username]
         return json.dumps(res,default=lambda o: o.__dict__)
 
+    def scoresJson(self):
+        res = dict()
+        for joueur in self.joueurs.values():
+            if joueur.username != "PNJ":
+                res[joueur.username] = [joueur.score,joueur.poidTotal]
+        return json.dumps(res,default=lambda o: o.__dict__)
 
 class Player:
     """
@@ -62,6 +69,9 @@ class Player:
         self.username = username
         self.spheres = []
         self.ia = ia
+        self.score = 1
+        self.poidTotal = 1
+        self.end = False
         if username != "PNJ":
             self.spheres.append(
                 Sphere(
@@ -114,6 +124,16 @@ class Player:
             #         random.randint(1, gamesize),
             #         taille=1000))
 
+
+    def updateScore(self):
+        sumtaille = 0
+        for sphere in self.spheres:
+            sumtaille += sphere.taille
+        if sumtaille > self.score:
+            self.score = sumtaille
+        self.poidTotal = sumtaille
+
+
 class Sphere:
     """
     Classe qui définit une Sphere
@@ -133,8 +153,10 @@ class Sphere:
         #self.t=0
 
     def split(self,player):
-        if len(player.spheres)<6 and self.taille < 5000000:
-            taillewait = self.taille/2
+        if len(player.spheres)<6:
+            print(self.taille)
+            taillewait = int(self.taille/2)
+            print(taillewait)
 
             vecVIt1wait = self.vectVitesse
             vecVIt2await = self.vectVitesse[0]*3
@@ -217,7 +239,7 @@ class Sphere:
         return math.sqrt(self.vectVitesse[0]**2 + self.vectVitesse[1]**2 )
 
     def normeVitesseMax(self):
-        return ((1/self.taille)*1000)+10
+        return ((1/self.taille)*10000000)+10
 
     def rayon(self):
         return math.sqrt(self.taille)

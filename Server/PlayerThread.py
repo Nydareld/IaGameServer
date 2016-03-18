@@ -1,5 +1,7 @@
 from Server.Game import *
 from threading import Thread
+from CodIa.tuto.models import User
+from CodIa.tuto.app import db
 import threading
 import time
 
@@ -46,7 +48,21 @@ class PlayerThread(Thread):
             self.GameThread.lockmanger.release()
             #print("après release")
             self.GameThread.barrierManger.wait()
+            if self.joueur.poidTotal<=0 and not self.joueur.end:
+                self.joueur.end = True
+                print("\033[91m Le Joueur "+self.joueur.username +" à perdu \033[0m")
+                user = User.query.filter_by(pseudo=self.joueur.username).first()
+                if user is not None:
+                    # print("\033[91m Zbra \033[0m")
+
+                    user.score += self.joueur.score
+                    db.session.commit()
             # time.sleep(1/60)
+        # self.GameThread.nbth-=1
+        # self.GameThread.barrierTours._parties -= 1
+
+
+
 
 
     def executeIa(self):
@@ -58,14 +74,31 @@ class PlayerThread(Thread):
         res=0
         for sphere in  self.joueur.spheres:
             sphere.vectVitesse = sphere.vitesseNextTick()
-            # if sphere.normeVitesse() > sphere.normeVitesseMax():
+            if sphere.normeVitesse() > sphere.normeVitesseMax():
                 # print("\033[91m caca \033[0m")
+                sphere.vectVitesse[0] *= 0.9
+                sphere.vectVitesse[1] *= 0.9
+            # else :
+            #     print("\033[92m non caca \033[0m")
             sphere.vectPos = sphere.posNextTick()
-            if sphere.taille > 2000000:
+
+            if sphere.taille > 100000:
+                somme = 0
+                for joueur in self.GameThread.game.joueurs.values():
+                    somme += joueur.poidTotal
+                #print("somme1"+str(somme))
                 sphere.split(self.joueur)
+                somme = 0
+
+                #print("=======================================================")
+
+                for joueur in self.GameThread.game.joueurs.values():
+                    somme += joueur.poidTotal
+                #print("somme2"+str(somme))
             #print("taille sphere max: "+str((sphere.taille)))
             #pass
-        pass
+        self.joueur.updateScore()
+
 
     def join(self):
         try:
